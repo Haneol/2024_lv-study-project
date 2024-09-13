@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+## 🆕 설치하고 실행할 명령어
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 노드 모듈 설치
 
-## Available Scripts
+  ```
+  npm i
+  ```
 
-In the project directory, you can run:
+- 스타일링 방법: styled-componenets
 
-### `npm start`
+  ```
+  npm install styled-components
+  ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- react-router 설치
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  ```
+  npm i react-router-dom
+  ```
 
-### `npm test`
+- tailwind 설치
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  ```
+  npm install -D tailwindcss
+  ```
 
-### `npm run build`
+- redux & react-redux 설치
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  ```
+  npm i redux react-redux
+  ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ❗ 참고할 것들
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- styled-components 사용방법 (예시)
 
-### `npm run eject`
+  ```javascript
+  import styled from "styled-components";
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  const StyledBox = styled.div`
+    border: 1px solid black;
+    border-radius: 5px;
+  `;
+  const Box = ({ text }) => {
+    return <StyledBox>{text}</StyledBox>;
+  };
+  ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 카카오 지도 사용 방법
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  리액트에서 카카오 지도를 사용하기 위해서는 Vue와 다르게 사용해야 합니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  ```javascript
+  var mapContainer = document.getElementById("map"),
+    mapOption = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3,
+    };
 
-## Learn More
+  var map = new kakao.maps.Map(mapContainer, mapOption);
+  ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  기존에는 위와 같은 코드로 지도를 사용할 수 있었지만, React 에서 사용하기 위해서는 kakao api 앞에 window. 을 추가해줘야 합니다.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  ```javascript
+  var mapContainer = document.getElementById("map"),
+    mapOption = {
+      center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3,
+    };
+  var map = new window.kakao.maps.Map(mapContainer, mapOption);
+  ```
 
-### Code Splitting
+- redux 사용할 때 도움되는 도구 `redux devtools`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  리덕스 개발자 도구로 현재 스토어의 상태를 개발자 도구에서 조회할 수 있는 프로그램입니다. 어떠한 액션을 했는지, 해당 액션으로 상태가 어떻게 변화했는지 확인할 수 있습니다.
 
-### Analyzing the Bundle Size
+  [리덕스 데브툴 설치하기](https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=ko)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  설치 후 터미널에 아래 명령어를 입력하여 다운 받은 후 실행한다면.
 
-### Making a Progressive Web App
+  ```
+  npm install @redux-devtools/extension
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  F12 를 눌러 개발자 도구를 켜보면 console, network 등의 항목 외에 새롭게 redux 라는 항목이 생긴 것을 확인할 수 있습니다.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  혹은 크롬 확장 프로그램을 눌러 확인할 수 있습니다.
