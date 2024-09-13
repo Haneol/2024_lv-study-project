@@ -4,7 +4,6 @@ import HomeComp from "./pages/home/HomeComp";
 import ShopList from "./pages/shopList/ShopList";
 import Detail from "./pages/detail/Detail";
 import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
 import Admin from "./pages/admin/Admin";
 import NotFound from "./pages/notFound/NotFound";
 import store from "./store";
@@ -21,7 +20,6 @@ function App() {
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/Admin" element={<Admin />}></Route>
       </Routes>
-      <Footer />
     </Provider>
   );
 }
