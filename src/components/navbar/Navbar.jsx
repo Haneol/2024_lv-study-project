@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <>
       <NavbarStyle>
-        <div className=""></div>
+        <div className="">TEST</div>
       </NavbarStyle>
     </>
   );
