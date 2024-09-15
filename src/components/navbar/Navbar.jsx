@@ -101,7 +101,7 @@ const ArrowButton = styled.button`
     &:first-child {
       transform: ${(props) =>
         props.isOpen
-          ? "rotate(45deg) translate(5px, 0px)"
+          ? "rotate(45deg) translate(2px, 2px)"
           : "rotate(0) translate(0, -5px)"};
     }
 
@@ -115,7 +115,7 @@ const ArrowButton = styled.button`
     &:last-child {
       transform: ${(props) =>
         props.isOpen
-          ? "rotate(-45deg) translate(4.5px, -0px)"
+          ? "rotate(-45deg) translate(2px, -2px)"
           : "rotate(0) translate(0, 5px)"};
     }
   }
@@ -367,7 +367,7 @@ function Navbar() {
                   />
                 </HoverBlurArea>
                 <HoverBlurArea>
-                  <AdminNavLink to="/admin">
+                  <AdminNavLink to="/Admin">
                     <img src="icons/setting.svg" alt="Admin" />
                   </AdminNavLink>
                 </HoverBlurArea>
@@ -409,6 +409,15 @@ function Navbar() {
           </BottomArea>
         </div>
       </NavbarArea>
+      <div
+        style={
+          location.pathname === "/"
+            ? { height: "0" }
+            : isMobile
+            ? { height: "64px" }
+            : { height: "130px" }
+        }
+      />
       {location.pathname.startsWith("/Admin") ? null : (
         <FloatingButtonArea onClick={onClickCart}>
           <CartBadge
