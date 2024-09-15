@@ -409,7 +409,6 @@ function Navbar() {
           </BottomArea>
         </div>
       </NavbarArea>
-      <div style={isMobile ? { height: "64px" } : { height: "130px" }}></div>
       {location.pathname.startsWith("/Admin") ? null : (
         <FloatingButtonArea onClick={onClickCart}>
           <CartBadge

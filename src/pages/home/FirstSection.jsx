@@ -1,7 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import AnimatedMouseIcon from "../../components/home/AnimatedMouseIcon";
 
 function FirstSection() {
-  return <div className="h-screen">FirstSection</div>;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      const maxScroll = windowHeight * 0.5;
+
+      if (scrollPosition <= maxScroll) {
+        const newOpacity = 1 - scrollPosition / maxScroll;
+        setOpacity(newOpacity);
+      } else {
+        setOpacity(0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="h-screen flex flex-col justify-center items-center ">
+      {isMobile ? (
+        <img
+          src="images/logo.png"
+          alt="LV"
+          className="text-white font-72 mb-16"
+          width="128px"
+          height="128px"
+        />
+      ) : (
+        <img
+          src="images/logo_text.png"
+          alt="LOUIS VUITTUN"
+          className="text-white font-72 mb-16"
+        />
+      )}
+      <p className="text-white font-24 font-light">L'âme du voyage</p>
+      <div className="absolute bottom-7" style={{ opacity }}>
+        <AnimatedMouseIcon />
+      </div>
+    </div>
+  );
 }
 
 export default FirstSection;
