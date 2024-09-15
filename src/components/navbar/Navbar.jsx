@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Searchbar from "./Searchbar";
 import { NavLink } from "react-router-dom";
+import CartBadge from "./CartBadge";
 
 // Styled Components
 
@@ -113,7 +114,7 @@ const MenuNavLink = styled(NavLink)`
   }
 `;
 
-const HoverBlurDiv = styled(NavLink)`
+const HoverBlurArea = styled(NavLink)`
   padding: 12px;
   position: relative;
   display: inline-block;
@@ -237,21 +238,19 @@ function Navbar() {
               </h1>
             </div>
             <IconMenuArea>
-              <HoverBlurDiv>
-                <img
-                  src="icons/cart.svg"
-                  alt="cart"
-                  className="cursor-pointer"
+              <HoverBlurArea>
+                <CartBadge
                   onClick={() => {
-                    alert("cart");
+                    alert("Cart");
                   }}
+                  itemCount={999} //TODO : cart state 가져와서 length로 변경하기
                 />
-              </HoverBlurDiv>
-              <HoverBlurDiv>
+              </HoverBlurArea>
+              <HoverBlurArea>
                 <AdminNavLink to="/admin">
                   <img src="icons/setting.svg" alt="Admin" />
                 </AdminNavLink>
-              </HoverBlurDiv>
+              </HoverBlurArea>
             </IconMenuArea>
           </div>
           {/* Bottom Area */}
