@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Searchbar from "./Searchbar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import CartBadge from "./CartBadge";
 
 // Styled Components
@@ -14,8 +14,26 @@ const NavbarArea = styled.div`
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(15px);
   transition: height 0.3s ease;
-  height: ${(props) => (props.isExpanded ? "130px" : "80px")};
-  padding: 20px 0px;
+
+  /* 모바일 스타일 */
+  height: 64px;
+  padding: 6px 0px;
+  ${(props) =>
+    props.isMenuOpen &&
+    `
+    height: 280px;
+  `}
+
+  /* 데스크톱 스타일 */
+  @media (min-width: 768px) {
+    height: 80px;
+    padding: 20px 0px;
+    ${(props) =>
+      (props.isExpanded || props.isMenuOpen) &&
+      `
+      height: 130px;
+    `}
+  }
 `;
 
 const IconMenuArea = styled.div`
@@ -24,13 +42,30 @@ const IconMenuArea = styled.div`
 `;
 
 const BottomArea = styled.div`
-  max-height: ${(props) => (props.isExpanded ? "50px" : "0")};
   overflow: hidden;
   transition: max-height 0.3s ease;
+
+  /* 모바일 스타일 */
+  max-height: 0;
+  ${(props) =>
+    props.isMenuOpen &&
+    `
+    max-height: 280px;
+  `}
+
+  /* 데스크톱 스타일 */
+  @media (min-width: 768px) {
+    max-height: 0;
+    ${(props) =>
+      (props.isExpanded || props.isMenuOpen) &&
+      `
+      max-height: 50px;
+    `}
+  }
 `;
 
 const ArrowButton = styled.button`
-  display: ${(props) => (props.isExpanded ? "none" : "flex")};
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -42,6 +77,14 @@ const ArrowButton = styled.button`
   padding: 0;
   z-index: 10;
   margin-right: 15px;
+
+  /* 모바일 스타일 */
+  display: flex;
+
+  /* 데스크톱 스타일 */
+  @media (min-width: 768px) {
+    display: ${(props) => (props.isExpanded ? "none" : "flex")};
+  }
 
   &:focus {
     outline: none;
@@ -92,13 +135,21 @@ const MenuNavLink = styled(NavLink)`
     background: #fff;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.3);
-    bottom: 8px;
-    left: calc(50% - 2px);
     width: 4px;
     height: 4px;
     border-radius: 10px;
     opacity: 0;
     transition: opacity 0.3s ease;
+
+    /* 모바일 스타일 */
+    bottom: calc(50% + 8px);
+    left: -4px;
+
+    /* 데스크톱 스타일 */
+    @media (min-width: 768px) {
+      bottom: 8px;
+      left: calc(50% - 2px);
+    }
   }
 
   &:hover::after {
@@ -172,11 +223,48 @@ const AdminNavLink = styled(NavLink)`
   }
 `;
 
+const FloatingButtonArea = styled.div`
+  position: fixed;
+  z-index: 10;
+  width: 64px;
+  height: 64px;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
 // Navbar Components
 
 function Navbar() {
+  const location = useLocation();
+
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -194,6 +282,15 @@ function Navbar() {
     }
   }, [isExpanded]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -205,14 +302,28 @@ function Navbar() {
     });
   };
 
+  const closeMenu = () => {
+    if (isMobile) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  const onClickSearch = () => {
+    alert("CLICK SEARCH");
+  };
+
+  const onClickCart = () => {
+    alert("CLICK CART");
+  };
+
   return (
     <>
-      <NavbarArea isExpanded={isExpanded || isMenuOpen}>
+      <NavbarArea isExpanded={isExpanded} isMenuOpen={isMenuOpen}>
         <div className="container mx-auto">
           {/* Top Area */}
-          <div className="flex justify-center">
+          <div className="hidden md:flex justify-center">
             <div className="absolute">
-              <Searchbar />
+              <Searchbar onClickSearchbar={onClickSearch} />
             </div>
           </div>
           <div className="flex justify-between items-center mb-3 px-3">
@@ -233,51 +344,79 @@ function Navbar() {
                   width="32px"
                   height="32px"
                   onClick={scrollToTop}
-                  className="cursor-pointer"
+                  className="hidden md:block cursor-pointer"
                 />
               </h1>
             </div>
-            <IconMenuArea>
-              <HoverBlurArea>
-                <CartBadge
-                  onClick={() => {
-                    alert("Cart");
-                  }}
-                  itemCount={999} //TODO : cart state 가져와서 length로 변경하기
+            <NavLink to="/" onClick={closeMenu}>
+              <h1 className="block md:hidden">
+                <img
+                  src="images/logo.png"
+                  alt="LV"
+                  width="32px"
+                  height="32px"
                 />
-              </HoverBlurArea>
-              <HoverBlurArea>
-                <AdminNavLink to="/admin">
-                  <img src="icons/setting.svg" alt="Admin" />
-                </AdminNavLink>
-              </HoverBlurArea>
+              </h1>
+            </NavLink>
+            <IconMenuArea>
+              <div className="hidden md:block">
+                <HoverBlurArea>
+                  <CartBadge
+                    onClick={onClickCart}
+                    itemCount={999} //TODO : cart state 가져와서 length로 변경하기
+                  />
+                </HoverBlurArea>
+                <HoverBlurArea>
+                  <AdminNavLink to="/admin">
+                    <img src="icons/setting.svg" alt="Admin" />
+                  </AdminNavLink>
+                </HoverBlurArea>
+              </div>
+              <div className="block md:hidden">
+                <HoverBlurArea onClick={onClickSearch}>
+                  <img src="icons/search.svg" alt="" />
+                </HoverBlurArea>
+              </div>
             </IconMenuArea>
           </div>
           {/* Bottom Area */}
-          <BottomArea isExpanded={isExpanded || isMenuOpen}>
-            <ul className="flex pb-5">
-              <li>
+          <BottomArea isExpanded={isExpanded} isMenuOpen={isMenuOpen}>
+            <ul className="flex flex-col items-center md:flex-row pb-5">
+              <li className="hidden md:block">
                 <MenuNavLink to="/">
-                  <img src="icons/home.svg" alt="" />
+                  <img src="icons/home.svg" alt="홈" />
                 </MenuNavLink>
               </li>
-              <li className="text-white font-bold font-16">
+              <li className="text-white font-bold font-16" onClick={closeMenu}>
                 <MenuNavLink to="/shopList/special">특별전</MenuNavLink>
               </li>
-              <li className="text-white font-bold font-16 ">
+              <li className="text-white font-bold font-16 " onClick={closeMenu}>
                 <MenuNavLink to="/shopList/women">여성</MenuNavLink>
               </li>
-              <li className="text-white font-bold font-16 ">
+              <li className="text-white font-bold font-16 " onClick={closeMenu}>
                 <MenuNavLink to="/shopList/men">남성</MenuNavLink>
               </li>
-              <li className="text-white font-bold font-16 ">
+              <li className="text-white font-bold font-16 " onClick={closeMenu}>
                 <MenuNavLink to="/shopList/family">가족</MenuNavLink>
+              </li>
+              <li
+                className="text-white font-bold font-16 block md:hidden"
+                onClick={closeMenu}
+              >
+                <MenuNavLink to="/Admin">Admin</MenuNavLink>
               </li>
             </ul>
           </BottomArea>
         </div>
       </NavbarArea>
-      <div style={{ height: "130px" }}></div>
+      <div style={isMobile ? { height: "64px" } : { height: "130px" }}></div>
+      {location.pathname.startsWith("/Admin") ? null : (
+        <FloatingButtonArea onClick={onClickCart}>
+          <CartBadge
+            itemCount={999} //TODO : cart state 가져와서 length로 변경하기
+          />
+        </FloatingButtonArea>
+      )}
     </>
   );
 }

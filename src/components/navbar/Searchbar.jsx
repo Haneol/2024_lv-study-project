@@ -24,11 +24,7 @@ const SearchbarArea = styled.div`
   }
 `;
 
-function Searchbar() {
-  const onClickSearchbar = () => {
-    alert("Clicked");
-  };
-
+function Searchbar({ onClickSearchbar }) {
   return (
     <SearchbarArea onClick={onClickSearchbar}>
       <img src="icons/search.svg" alt="" />
