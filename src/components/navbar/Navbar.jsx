@@ -348,16 +348,30 @@ function Navbar() {
                 />
               </h1>
             </div>
-            <NavLink to="/" onClick={closeMenu}>
-              <h1 className="block md:hidden">
+            {location.pathname === "/" ? (
+              <h1>
                 <img
                   src="images/logo.png"
                   alt="LV"
                   width="32px"
                   height="32px"
+                  onClick={scrollToTop}
+                  className="block md:hidden cursor-pointer"
                 />
               </h1>
-            </NavLink>
+            ) : (
+              <NavLink to="/" onClick={closeMenu}>
+                <h1 className="block md:hidden">
+                  <img
+                    src="images/logo.png"
+                    alt="LV"
+                    width="32px"
+                    height="32px"
+                  />
+                </h1>
+              </NavLink>
+            )}
+
             <IconMenuArea>
               <div className="hidden md:block">
                 <HoverBlurArea>
