@@ -8,7 +8,7 @@ import CartBadge from "./CartBadge";
 
 const NavbarArea = styled.div`
   position: fixed;
-  z-index: 10;
+  z-index: 1000;
   width: 100%;
   background: rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
