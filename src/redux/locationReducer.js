@@ -1,3 +1,6 @@
+const DELETE = "delete";
+const ADD = "post";
+
 const initialState = {
   locationList: [
     {
@@ -32,8 +35,22 @@ const initialState = {
 
 const locationReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD:
+      if (state.locationList.some((loc) => loc.name === action.payload.name)) {
+        alert("이미 존재하는 매장입니다.");
+        return state;
+      } else {
+        const arr = [...state.locationList, action.payload];
+        return { ...state, locationList: arr };
+      }
+    case DELETE:
+      const arr = state.locationList.filter(
+        (loc) => loc.name !== action.payload
+      );
+      return { ...state, locationList: arr };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default locationReducer;
