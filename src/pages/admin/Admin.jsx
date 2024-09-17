@@ -258,7 +258,7 @@ function Admin() {
 
                     <StyledLabel
                       htmlFor="file"
-                      className="flex justify-center items-center border-white bg-white bg-opacity-10 rounded-full h-1/3 px-5 py-3"
+                      className="cursor-pointer flex justify-center items-center border-white bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
                       style={{ width: "47%" }}
                     >
                       <p className="text-black text-opacity-50 text-xs">
