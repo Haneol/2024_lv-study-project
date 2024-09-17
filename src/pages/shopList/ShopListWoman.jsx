@@ -48,16 +48,15 @@ function ShopList() {
     <Styledcontainer>
       <div className="container">
         <div className="my-32 mx-20 text-center md:text-left">
-          <h1 className="text-3xl mb-5 font-bold">추석선물 제안</h1>
-          <p>
-            루이 비통과 함께 특별한 추석을 맞이하세요. ​구매 시 온라인 단독
-            스페셜 기프트를 드립니다.
-          </p>
+          <h1 className="text-3xl mb-5 font-bold">여성을 위한 선물</h1>
+          <p>리버서블이 가능한 NEW 네버풀 인사이드 아웃 런칭을 기념하여</p>
 
           <p>
-            ​일부 품목에 한하여 비비엔 레더 택과 추석 보자기 패키지가
-            제공됩니다.
+            해당 제품 온라인 구매자 대상으로 레더 택 증정 및 이니셜 각인
+            서비스를 제공합니다.
           </p>
+
+          <p>*해당 서비스는 한정 수량으로, 레더 택 소진 시까지 증정됩니다.</p>
         </div>
 
         <div className="menuWrap mx-auto p-4">
@@ -75,11 +74,11 @@ function ShopList() {
 function Box({ boxesRef }) {
   return (
     <>
-      {data.slice(20, 41).map((item, i) => {
+      {data.slice(57, 78).map((item, i) => {
         return (
           <Link
-            key={i + 20}
-            to={`/detail/${i + 20}`}
+            key={i + 57}
+            to={`/detail/${i + 57}`}
             ref={(el) => (boxesRef.current[i] = el)}
           >
             <div className="w-full md:w-1/2 lg:w-auto h-auto bg-white bg-opacity-60 rounded-2xl flex justify-center items-end p-4 m-3 group hover:bg-opacity-100">
