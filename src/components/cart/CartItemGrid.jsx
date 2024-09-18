@@ -1,12 +1,11 @@
 import React from "react";
-import addSquare from "./add-square.png";
-import minusSquare from "./minus-square.png";
-import xSquare from "./Group 46.png";
+import addSquare from "./add-square.svg";
+import minusSquare from "./minus-square.svg";
+import xSquare from "./x-square.svg";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import cartReducer from "../../redux/cartReducer";
 
-let plusMinusButton = styled.div`
+const PlusMinusButton = styled.div`
   width: 6px;
   height: 6px;
   position: relative;
@@ -26,7 +25,7 @@ function CartItemGrid(cartItem) {
             onClick={() => {
               dispatch({
                 type: "@cart/cartItemDelete",
-                payload: cartItem.item,
+                payload: cartItem.item.id,
               });
             }}
           />
@@ -53,7 +52,7 @@ function CartItemGrid(cartItem) {
           <div className="w-[99px] h-8 relative">
             <div className="w-[99px] h-8 left-0 top-0 absolute">
               <div className="w-6 h-6 left-[75px] top-[4px] absolute justify-center items-center inline-flex cursor-pointer">
-                <div className="plusMinusButton">
+                <PlusMinusButton>
                   <img
                     src={addSquare}
                     alt="addSquare"
@@ -64,21 +63,21 @@ function CartItemGrid(cartItem) {
                       });
                     }}
                   />
-                </div>
+                </PlusMinusButton>
               </div>
               <div className="w-6 h-6 left-0 top-[4px] absolute justify-center items-center inline-flex cursor-pointer">
-                <div className="plusMinusButton">
+                <PlusMinusButton>
                   <img
                     src={minusSquare}
                     alt="minusSquare"
                     onClick={() => {
                       dispatch({
                         type: "@cart/cartItemPop",
-                        payload: cartItem.item,
+                        payload: cartItem.item.id,
                       });
                     }}
                   />
-                </div>
+                </PlusMinusButton>
               </div>
               <div className="w-10 h-8 left-[30px] top-0 absolute bg-white/30 rounded-[5px] border border-white/30" />
             </div>

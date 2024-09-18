@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchModalItemGrid from "./SearchModalItemGrid";
 import styled from "styled-components";
 import SearchModalInput from "./SearchModalInput";
@@ -29,6 +29,7 @@ const SearchbarArea = styled.div`
 
 function SearchModal() {
   const [searchingData, setSearchingData] = useState([]);
+  const [isSearchModalVisible, setIsSearchModalVisible] = useState(true);
   const searchWithText = (text) => {
     const filteringData =
       text !== "" ? data.filter((item) => item.name.includes(text)) : [];
@@ -36,17 +37,29 @@ function SearchModal() {
   };
   return (
     <>
-      <div className="fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px]">
-        <div className="pt-10 flex flex-col items-center">
-          <SearchbarArea className="mb-[60px]">
-            <img src={searchIcon} alt="search" className="mr-2" />
-            <SearchModalInput onTextChange={searchWithText} />
-          </SearchbarArea>
-          {searchingData.map((item) => (
-            <SearchModalItemGrid item={item} />
-          ))}
+      {isSearchModalVisible && (
+        <div
+          className="fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
+          onClick={() => {
+            setIsSearchModalVisible(false);
+          }}
+        >
+          <div
+            className="w-fit pt-10 flex flex-col items-center m-auto"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <SearchbarArea className="mb-[60px]">
+              <img src={searchIcon} alt="search" className="mr-2" />
+              <SearchModalInput onTextChange={searchWithText} />
+            </SearchbarArea>
+            {searchingData.map((item) => (
+              <SearchModalItemGrid key={item.id} item={item} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

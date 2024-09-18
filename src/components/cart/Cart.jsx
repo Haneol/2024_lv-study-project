@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import CartItemGrid from "./CartItemGrid";
 import CartFooter from "./CartFooter";
 import { useSelector } from "react-redux";
-import leftArrow from "./arrow-left.png";
+import leftArrow from "./arrow-left.svg";
+import CartPayCompleteModal from "./CartPayCompleteModal";
 
 function Cart() {
   const cartList = useSelector((state) => state.cart.cartList);
   const cartSet = cartList.filter(
     (obj, index, self) => index === self.findIndex((o) => o.id === obj.id)
   );
-  const itemNum = (nowItem) => {
-    return cartList.filter((item) => item.id === nowItem.id).length;
+  const itemNum = (findingId) => {
+    return cartList.filter((item) => item.id === findingId).length;
   };
   const [isVisible, setIsVisible] = useState(true);
   const [isOverflow, setIsOverflow] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const openModal = () => setIsModalVisible(true);
+  const closeModal = () => setIsModalVisible(false);
 
   useEffect(() => {
     if (isVisible) {
@@ -46,23 +50,29 @@ function Cart() {
             </div>
             <div className="mt-9 space-y-5 mb-20 ">
               {cartList != []
-                ? cartSet.map((item) => (
-                    <CartItemGrid item={item} count={itemNum(item)} />
+                ? cartSet.map((i) => (
+                    <CartItemGrid key={i.id} item={i} count={itemNum(i.id)} />
                   ))
                 : ""}
             </div>
             {isOverflow ? (
               <div className=" bottom-7">
-                <CartFooter />
+                <CartFooter isModalVisible={openModal} />
               </div>
             ) : (
               <div className="fixed bottom-7">
-                <CartFooter />
+                <CartFooter isModalVisible={openModal} />
               </div>
             )}
           </div>
         )}
       </div>
+      {isModalVisible && (
+        <CartPayCompleteModal
+          isModalVisible={closeModal}
+          modalCloseTime={1000}
+        />
+      )}
     </>
   );
 }
