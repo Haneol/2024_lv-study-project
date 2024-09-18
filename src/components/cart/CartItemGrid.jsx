@@ -37,8 +37,8 @@ function CartItemGrid(cartItem) {
             src={cartItem.item.img[490]}
             alt="cartItemImg"
           />
-          <div className="truncate w-[150px] h-[61px] left-[137px] top-[39px] absolute">
-            <div className="left-0 top-0 absolute text-[#4e3e2d] text-2xl font-normal font-['Pretendard'] leading-loose">
+          <div className="w-[150px] h-[61px] left-[137px] top-[39px] absolute">
+            <div className="truncate w-full left-0 top-0 absolute text-[#4e3e2d] text-2xl font-normal font-['Pretendard'] leading-loose">
               {cartItem.item.name}
             </div>
             <div className="left-0 top-[37px] absolute text-[#808080] text-base font-normal font-['Pretendard'] leading-normal">
