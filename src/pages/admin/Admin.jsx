@@ -31,14 +31,6 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledButton = styled.button`
-  border: 1px solid rgba(255, 255, 255, 20);
-`;
-
-const StyledLabel = styled.label`
-  border: 1px solid rgba(255, 255, 255, 20);
-`;
-
 function Admin() {
   const [inputName, setInputName] = useState("");
   const [inputPhone, setInputPhone] = useState("");
@@ -46,6 +38,7 @@ function Admin() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [image, setImage] = useState(null);
+  const [imageText, setImageText] = useState(null);
   const [modal, setModal] = useState(false);
   const locations = useSelector((state) => state.location.locationList);
   const dispatch = useDispatch();
@@ -149,6 +142,19 @@ function Admin() {
     setLatitude(0);
     setLongitude(0);
     setImage(null);
+    setImageText(null);
+  }
+
+  function handleImageChange(e) {
+    setImageText(e.target.value);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Base64 문자열로 이미지 저장
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
@@ -243,34 +249,34 @@ function Admin() {
                     />
                   </div>
                   <div className="h-full mb-3 flex justify-between">
-                    <StyledButton
+                    <button
                       onClick={() => setModal(true)}
-                      className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white font-bold text-opacity-80 hover:text-opacity-100 border-white rounded-full h-1/3 px-5  text-center"
+                      className="border border-white bg-white bg-opacity-10 hover:bg-opacity-20 text-white font-bold text-opacity-80 hover:text-opacity-100 border-white rounded-full h-1/3 px-5  text-center"
                       style={{ width: "47%" }}
                     >
                       <div className="flex justify-center items-center content-center gap-2">
                         <img src="./images/mapIcon.jpg" alt="" />
-                        <p className="text-xs">
+                        <p className="text-xs w-full whitespace-nowrap overflow-hidden text-ellipsis">
                           {address ? address : `장소 검색하기`}
                         </p>
                       </div>
-                    </StyledButton>
+                    </button>
 
-                    <StyledLabel
+                    <label
                       htmlFor="file"
-                      className="cursor-pointer flex justify-center items-center border-white bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
+                      className="border border-white cursor-pointer flex justify-center items-center border-white bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
                       style={{ width: "47%" }}
                     >
-                      <p className="text-black text-opacity-50 text-xs">
-                        {image ? image : `이미지를 선택해주세요.`}
+                      <p className="whitespace-nowrap overflow-hidden text-ellipsis text-black text-opacity-50 text-xs w-full text-center">
+                        {imageText ? imageText : `이미지를 선택해주세요.`}
                       </p>
-                    </StyledLabel>
+                    </label>
                     <input
                       type="file"
                       id="file"
                       accept="imgae/*"
                       className="hidden"
-                      onChange={(e) => setImage(e.target.value)}
+                      onChange={handleImageChange}
                     />
                   </div>
                 </div>
