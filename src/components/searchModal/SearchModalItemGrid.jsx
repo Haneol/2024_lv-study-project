@@ -1,5 +1,4 @@
 import React from "react";
-import shoppingIcon from "./shopping-cart.svg";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -62,7 +61,7 @@ function SearchModalItemGrid(searchItem) {
           >
             <div className="w-6 h-6 justify-center items-center flex">
               <div className="w-6 h-6 relative">
-                <img src={shoppingIcon} alt="shopping" />
+                <img src="icons/shopping-cart.svg" alt="shopping" />
               </div>
             </div>
           </div>
