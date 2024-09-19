@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Searchbar from "./Searchbar";
 import { NavLink, useLocation } from "react-router-dom";
 import CartBadge from "./CartBadge";
+import Cart from "../cart/Cart";
 
 // Styled Components
 

@@ -1,7 +1,4 @@
 import React from "react";
-import addSquare from "./add-square.svg";
-import minusSquare from "./minus-square.svg";
-import xSquare from "./x-square.svg";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
@@ -20,7 +17,7 @@ function CartItemGrid(cartItem) {
       <div className="w-[356.04px] h-[162px] left-[25px] top-0 absolute">
         <div className="w-3 h-3 left-[344px] top-[20px] absolute cursor-pointer">
           <img
-            src={xSquare}
+            src="/icons/x-square.svg"
             alt="xSquare"
             onClick={() => {
               dispatch({
@@ -54,7 +51,7 @@ function CartItemGrid(cartItem) {
               <div className="w-6 h-6 left-[75px] top-[4px] absolute justify-center items-center inline-flex cursor-pointer">
                 <PlusMinusButton>
                   <img
-                    src={addSquare}
+                    src="icons/add-square.svg"
                     alt="addSquare"
                     onClick={() => {
                       dispatch({
@@ -68,7 +65,7 @@ function CartItemGrid(cartItem) {
               <div className="w-6 h-6 left-0 top-[4px] absolute justify-center items-center inline-flex cursor-pointer">
                 <PlusMinusButton>
                   <img
-                    src={minusSquare}
+                    src="icons/minus-square.svg"
                     alt="minusSquare"
                     onClick={() => {
                       dispatch({

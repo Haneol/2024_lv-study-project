@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CartItemGrid from "./CartItemGrid";
 import CartFooter from "./CartFooter";
 import { useSelector } from "react-redux";
-import leftArrow from "./arrow-left.svg";
 import CartPayCompleteModal from "./CartPayCompleteModal";
 
 function Cart() {
@@ -46,7 +45,7 @@ function Cart() {
               className="w-8 h-8 justify-center items-center inline-flex absolute top-[54px] left-[48px] cursor-pointer"
               onClick={() => setIsVisible(false)}
             >
-              <img src={leftArrow} alt="leftArrow" />
+              <img src="/icons/arrow-left.svg" alt="leftArrow" />
             </div>
             <div className="mt-9 space-y-5 mb-20 ">
               {cartList != []

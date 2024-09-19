@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import okayCircle from "./okay-circle.svg";
 
 function CartPayCompleteModal({ isModalVisible, modalCloseTime }) {
   useEffect(() => {
@@ -16,7 +15,7 @@ function CartPayCompleteModal({ isModalVisible, modalCloseTime }) {
           <div className="w-full flex-col justify-start items-center gap-[55px] inline-flex">
             <div>
               <img
-                src={okayCircle}
+                src="icons/okay-circle.svg"
                 alt="okayCircle"
                 className="w-[141px] h-[141px] object-cover"
               />
