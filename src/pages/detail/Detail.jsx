@@ -13,11 +13,11 @@ function Detail() {
 
   return (
     <div className="h-screen">
-      <div className="container mx-auto mb-5 py-5 lg:mt-32 lg:px-24 ">
-        <div className="h-[80vh] bg-white bg-opacity-60 rounded-3xl flex flex-col lg:flex-row items-center relative">
+      <div className="container mx-auto mb-5 py-5 lg:mt-32 lg:px-24 flex flex-col md:flex-row">
+        <div className="h-auto bg-white bg-opacity-60 rounded-3xl flex flex-col xl:flex-row items-center relative">
           <img
             src={product.img[600]}
-            className="w-1/2 scale-75 pb-10 object-contain"
+            className="scale-75 lg:scale-90 pb-10 object-contain"
           ></img>
           <button
             onClick={goBack}
@@ -25,11 +25,11 @@ function Detail() {
           >
             X
           </button>
-          <div className="flex flex-col p-12 lg:w-1/2">
+          <div className="flex flex-col p-12 xl:w-1/2">
             <p className=" text-gray-800">{product.num}</p>
             <p className="name text-2xl mb-8 mt-6">{product.name}</p>
             <p className="text-gray-800">{product.text}</p>
-            <p className="font-bold text-2xl mb-10 mt-8 text-center lg:text-start">
+            <p className="font-bold text-2xl mb-10 mt-8 text-center xl:text-start">
               {product.price}
             </p>
             <button className="bg-black bg-opacity-30 text-white rounded-full w-full h-16  hover:bg-gray-500">
