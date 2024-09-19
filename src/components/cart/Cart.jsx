@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CartItemGrid from "./CartItemGrid";
 import CartFooter from "./CartFooter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartPayCompleteModal from "./CartPayCompleteModal";
 
 function Cart() {
@@ -12,14 +12,16 @@ function Cart() {
   const itemNum = (findingId) => {
     return cartList.filter((item) => item.id === findingId).length;
   };
-  const [isVisible, setIsVisible] = useState(true);
   const [isOverflow, setIsOverflow] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const openModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
+  const isCartVisible = useSelector((state) => state.modal.cartIsVisible);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isVisible) {
+    if (isCartVisible) {
       const cartContainer = document.querySelector(".cartContainer");
       const chkOverflow = (e) => {
         return e.scrollHeight > e.clientHeight;
@@ -29,21 +31,26 @@ function Cart() {
         setIsOverflow(chkOverflow(cartContainer));
       };
       window.addEventListener("resize", handleResize);
+      setIsAnimating(true);
       return () => window.removeEventListener("resize", handleResize);
     }
-  }, [isVisible, setIsOverflow]);
+  }, [isCartVisible, setIsOverflow]);
 
   return (
     <>
-      <div className="fixed top-0 right-0 ">
-        {isVisible && (
-          <div className="cartContainer overflow-y-auto fixed t-0 w-[500px] h-auto max-h-svh min-h-svh bg-white/20 border border-white/30 backdrop-blur-[80px] flex flex-col items-center right-0 max-md:left-1/2 max-md:-translate-x-1/2">
+      <div className="fixed top-0 right-0 z-[1001]">
+        {isCartVisible && (
+          <div
+            className={
+              "cartContainer ta overflow-y-auto fixed t-0 w-[500px] h-auto max-h-svh min-h-svh bg-white/20 border border-white/30 backdrop-blur-[80px] flex flex-col items-center right-0 max-md:left-1/2 max-md:-translate-x-1/2"
+            }
+          >
             <div className="text-white text-[32px] font-light font-['Pretendard'] leading-loose mt-9">
               장바구니
             </div>
             <div
               className="w-8 h-8 justify-center items-center inline-flex absolute top-[54px] left-[48px] cursor-pointer"
-              onClick={() => setIsVisible(false)}
+              onClick={() => dispatch({ type: "@modal/cartClose" })}
             >
               <img src="/icons/arrow-left.svg" alt="leftArrow" />
             </div>

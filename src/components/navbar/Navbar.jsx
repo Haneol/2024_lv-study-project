@@ -3,7 +3,9 @@ import styled from "styled-components";
 import Searchbar from "./Searchbar";
 import { NavLink, useLocation } from "react-router-dom";
 import CartBadge from "./CartBadge";
+import { useDispatch, useSelector } from "react-redux";
 import Cart from "../cart/Cart";
+import SearchModal from "../searchModal/SearchModal";
 
 // Styled Components
 
@@ -262,11 +264,11 @@ const FloatingButtonArea = styled.div`
 
 function Navbar() {
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
+  const cartList = useSelector((state) => state.cart.cartList);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY ?? window.pageYOffset;
@@ -310,15 +312,17 @@ function Navbar() {
   };
 
   const onClickSearch = () => {
-    alert("CLICK SEARCH");
+    dispatch({ type: "@modal/searchOpen" });
   };
 
   const onClickCart = () => {
-    alert("CLICK CART");
+    dispatch({ type: "@modal/cartOpen" });
   };
 
   return (
     <>
+      <Cart />
+      <SearchModal />
       <NavbarArea isExpanded={isExpanded} isMenuOpen={isMenuOpen}>
         <div className="container mx-auto">
           {/* Top Area */}
@@ -378,7 +382,7 @@ function Navbar() {
                 <HoverBlurArea>
                   <CartBadge
                     onClick={onClickCart}
-                    itemCount={999} //TODO : cart state 가져와서 length로 변경하기
+                    itemCount={cartList.length} //TODO : cart state 가져와서 length로 변경하기
                   />
                 </HoverBlurArea>
                 <HoverBlurArea>

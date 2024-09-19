@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SearchModalInput from "./SearchModalInput";
 import searchIcon from "./search-normal.svg";
 import data from "../../data";
+import { useDispatch, useSelector } from "react-redux";
 
 const SearchbarArea = styled.div`
   width: 360px;
@@ -29,23 +30,26 @@ const SearchbarArea = styled.div`
 
 function SearchModal() {
   const [searchingData, setSearchingData] = useState([]);
-  const [isSearchModalVisible, setIsSearchModalVisible] = useState(true);
+  const isSearchModalVisible = useSelector(
+    (state) => state.modal.searchIsVisible
+  );
   const searchWithText = (text) => {
     const filteringData =
       text !== "" ? data.filter((item) => item.name.includes(text)) : [];
     setSearchingData(filteringData);
   };
+  const dispatch = useDispatch();
   return (
     <>
       {isSearchModalVisible && (
         <div
-          className="fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
+          className="z-[1002] fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
           onClick={() => {
-            setIsSearchModalVisible(false);
+            dispatch({ type: "@modal/searchClose" });
           }}
         >
           <div
-            className="w-fit pt-10 flex flex-col items-center m-auto"
+            className="w-fit mt-5  flex flex-col items-center m-auto"
             onClick={(e) => {
               e.stopPropagation();
             }}
