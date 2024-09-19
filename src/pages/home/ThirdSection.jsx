@@ -4,34 +4,42 @@ import { useSelector } from "react-redux";
 
 const PLUS_NUM = 0.012;
 
-const TitleArea = styled.div`
-  color: white;
-  line-height: 32px;
-  font-size: 24px;
-  position: relative;
-  margin-left: 85px;
-  margin-bottom: 50px;
-
-  &::before {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 80px;
-    border: 2px solid white;
-    top: 15px;
-    left: -85px;
+const ThirdTitle = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  & > div:nth-child(1),
+  & > div:nth-child(3) {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    transition: width 0.3s ease-out;
   }
-  &::after {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 250px;
-    border: 2px solid white;
-    top: 15px;
-    left: 110px;
+  & > div:nth-child(1) {
+    width: ${(props) => props.leftWidth}px;
+  }
+  & > div:nth-child(3) {
+    width: ${(props) => props.rightWidth}px;
+  }
+  & > p {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+
+    /* 데스크탑 스타일 */
+    @media (min-width: 768px) {
+      font-size: 20px;
+    }
+  }
+
+  /* 모바일 스타일 */
+  @media (max-width: 768px) {
+    justify-content: center;
+    & > div:nth-child(1),
+    & > div:nth-child(3) {
+      width: ${(props) => props.mobileWidth}px;
+    }
   }
 `;
-
 const LocationWrap = styled.div`
   height: calc(100% - 92px);
   overflow-y: scroll;
@@ -48,6 +56,10 @@ const LocationWrap = styled.div`
 function ThirdSection() {
   const locations = useSelector((state) => state.location.locationList);
   const [inMaps, setInMaps] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [leftWidth, setLeftWidth] = useState(window.innerWidth / 16);
+  const [rightWidth, setRightWidth] = useState(window.innerWidth / 40);
+  const [mobileWidth, setMobileWidth] = useState(window.innerWidth / 16);
   const [activeOverLay, setActiveOverLay] = useState(null);
   const map = useRef(null);
 
@@ -62,6 +74,41 @@ function ThirdSection() {
       };
     }
   }, [activeOverLay]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const threshold = window.innerHeight * 1.1;
+      if (scrollPosition > threshold) {
+        if (isMobile) {
+          setMobileWidth(window.innerWidth / 4);
+        } else {
+          setLeftWidth(window.innerWidth / 16);
+          setRightWidth(window.innerWidth / 5);
+        }
+      } else {
+        if (isMobile) {
+          setMobileWidth(window.innerWidth / 16);
+        } else {
+          setLeftWidth(window.innerWidth / 40);
+          setRightWidth(window.innerWidth / 16);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobile]);
+
   // 지도 생성 함수
   function initMap() {
     let mapContainer = document.getElementById("map"),
@@ -179,7 +226,17 @@ function ThirdSection() {
   return (
     <div className="md:h-screen ">
       <div className="container mx-auto p-5 md:p-0 2xl:px-16">
-        <TitleArea>매장 정보</TitleArea>
+        <ThirdTitle
+          leftWidth={leftWidth}
+          rightWidth={rightWidth}
+          mobileWidth={mobileWidth}
+          className="mb-8"
+        >
+          <div />
+          <p>매장 정보</p>
+          <div />
+        </ThirdTitle>
+
         <div className="container p-10 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg">
           <div className="flex flex-wrap">
             <div className="w-full md:w-7/12 mb-5 md:mb-0">

@@ -20,8 +20,9 @@ const StyledInput = styled.input`
   border: 1px solid rgba(255, 255, 255, 20);
 
   &::placeholder {
-    opacity: 0.5;
-    color: black;
+    opacity: 0.8;
+    color: #e0e0e0;
+
     font-size: 12px;
   }
 
@@ -40,9 +41,12 @@ function Admin() {
   const [image, setImage] = useState(null);
   const [imageText, setImageText] = useState(null);
   const [modal, setModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const locations = useSelector((state) => state.location.locationList);
   const dispatch = useDispatch();
   const map = useRef(null);
+  let isDisabled =
+    !imageText || !address || inputName === "" || inputPhone === "";
 
   useEffect(() => {
     initMap();
@@ -96,6 +100,12 @@ function Admin() {
 
   // 리스트의 항목 클릭시 이동하는 함수
   function moveCenter(loc) {
+    console.log(loc);
+    setEditMode(true);
+    setInputName(loc.name);
+    setInputPhone(loc.phone);
+    setAddress(loc.address);
+    setImageText(loc.image);
     const moveLatLon = new window.kakao.maps.LatLng(
       loc.latitude,
       loc.longitude
@@ -166,7 +176,7 @@ function Admin() {
         <div className="container p-10 bg-gray-100 bg-opacity-20 rounded-lg border border-white border-opacity-30">
           <div className="flex flex-wrap">
             <div
-              className="rounded-lg pt-5 mb-5 md:mb-0 w-full  md:w-[38.5%] bg-gray-100 bg-opacity-40 flex-col"
+              className="rounded-lg pt-5 w-full order-2 md:order-1 md:w-[38.5%] bg-gray-100 bg-opacity-40 flex-col"
               style={{ height: "60vh" }}
             >
               <LocationWrap>
@@ -206,7 +216,7 @@ function Admin() {
               </LocationWrap>
             </div>
             <div
-              className="w-full md:w-7/12 md:ml-auto flex flex-col justify-between"
+              className="w-full md:w-7/12 mb-5 md:mb-0 md:ml-auto order-1 md:order-2 flex flex-col justify-between"
               style={{ height: "60vh" }}
             >
               <div
@@ -219,15 +229,32 @@ function Admin() {
                 style={{ height: "28vh" }}
               >
                 <div className="flex justify-between">
-                  <h1 className="text-white font-bold text-xl mb-3">
-                    매장 추가하기
+                  <h1 className="text-white font-bold text-xl mb-3 ">
+                    {editMode ? "매장 수정하기" : "매장 추가하기"}
                   </h1>
-                  <button
-                    onClick={addLocation}
-                    className="w-20 h-8 mr-1 bg-black bg-opacity-20 rounded-full text-white text-opacity-60 hover:text-opacity-100 hover:bg-opacity-40"
-                  >
-                    + 등록
-                  </button>
+                  <div className="flex items-start gap-4">
+                    {editMode && (
+                      <div
+                        className="text-white cursor-pointer"
+                        onClick={() => {
+                          setEditMode(false);
+                          clear();
+                        }}
+                      >
+                        취소
+                      </div>
+                    )}
+                    <button
+                      onClick={addLocation}
+                      className={`w-20 h-7 mr-1 bg-black bg-opacity-20 rounded-full text-white text-opacity-60 ${
+                        !isDisabled &&
+                        "hover:bg-opacity-40 hover:text-opacity-100"
+                      }`}
+                      disabled={isDisabled}
+                    >
+                      + 등록
+                    </button>
+                  </div>
                 </div>
                 <div className="h-full">
                   <div className="h-1/3 mb-3 flex justify-between">
@@ -235,7 +262,7 @@ function Admin() {
                       type="text"
                       value={inputName}
                       onChange={(e) => setInputName(e.target.value)}
-                      className="bg-white bg-opacity-10 rounded-full h-full px-5 text-center"
+                      className="text-xs text-white bg-white bg-opacity-10 rounded-full h-full px-5 text-center"
                       style={{ width: "47%" }}
                       placeholder="매장명을 입력하세요."
                     />
@@ -243,7 +270,7 @@ function Admin() {
                       type="text"
                       value={inputPhone}
                       onChange={(e) => setInputPhone(e.target.value)}
-                      className="bg-white bg-opacity-10 rounded-full h-full px-5 text-center"
+                      className="text-white text-xs bg-white bg-opacity-10 rounded-full h-full px-5 text-center"
                       style={{ width: "47%" }}
                       placeholder="전화번호를 입력하세요."
                     />
@@ -251,12 +278,18 @@ function Admin() {
                   <div className="h-full mb-3 flex justify-between">
                     <button
                       onClick={() => setModal(true)}
-                      className="border border-white bg-white bg-opacity-10 hover:bg-opacity-20 text-white font-bold text-opacity-80 hover:text-opacity-100 border-white rounded-full h-1/3 px-5  text-center"
+                      className={`border border-white bg-white bg-opacity-10 ${
+                        !isDisabled && "bg-opacity-30"
+                      } hover:bg-opacity-50 text-white font-bold text-opacity-80 hover:text-opacity-100 border-white rounded-full h-1/3 px-5  text-center`}
                       style={{ width: "47%" }}
                     >
-                      <div className="flex justify-center items-center content-center gap-2">
+                      <div className="flex justify-center items-center content-center gap-2 w-full">
                         <img src="./images/mapIcon.jpg" alt="" />
-                        <p className="text-xs w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                        <p
+                          className={`${
+                            address ? "text-white" : "text-gray-200"
+                          }  text-xs whitespace-nowrap overflow-hidden text-ellipsis`}
+                        >
                           {address ? address : `장소 검색하기`}
                         </p>
                       </div>
@@ -267,7 +300,11 @@ function Admin() {
                       className="border border-white cursor-pointer flex justify-center items-center border-white bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
                       style={{ width: "47%" }}
                     >
-                      <p className="whitespace-nowrap overflow-hidden text-ellipsis text-black text-opacity-50 text-xs w-full text-center">
+                      <p
+                        className={`whitespace-nowrap overflow-hidden text-ellipsis ${
+                          imageText ? "text-white" : "text-gray-200"
+                        } text-xs w-full text-center`}
+                      >
                         {imageText ? imageText : `이미지를 선택해주세요.`}
                       </p>
                     </label>
