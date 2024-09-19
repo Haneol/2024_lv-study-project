@@ -46,7 +46,7 @@ function ShopList() {
 
   return (
     <Styledcontainer>
-      <div className="container">
+      <div className="container mx-auto">
         <div className="my-32 mx-20 text-center md:text-left">
           <h1 className="text-3xl mb-5 font-bold">가족을 위한 선물</h1>
           <p>루이 비통과 함께 사랑하는 가족에게 감사의 마음을 전하세요.</p>

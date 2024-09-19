@@ -46,7 +46,7 @@ function ShopList() {
 
   return (
     <Styledcontainer>
-      <div className="container">
+      <div className="container mx-auto">
         <div className="my-32 mx-20 text-center md:text-left">
           <h1 className="text-3xl mb-5 font-bold">남성을 위한 선물</h1>
           <p>데일리 포인트가 되어줄 감각적인 남성 선물 아이템을 만나보세요.</p>

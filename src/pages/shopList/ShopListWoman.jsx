@@ -46,7 +46,7 @@ function ShopList() {
 
   return (
     <Styledcontainer>
-      <div className="container">
+      <div className="container mx-auto">
         <div className="my-32 mx-20 text-center md:text-left">
           <h1 className="text-3xl mb-5 font-bold">여성을 위한 선물</h1>
           <p>리버서블이 가능한 NEW 네버풀 인사이드 아웃 런칭을 기념하여</p>
@@ -59,7 +59,7 @@ function ShopList() {
           <p>*해당 서비스는 한정 수량으로, 레더 택 소진 시까지 증정됩니다.</p>
         </div>
 
-        <div className="menuWrap mx-auto p-4">
+        <div className="menuWrap mx-auto p-4 w-full">
           <div className="flex flex-col">
             <StyledmenuWrap>
               <Box boxesRef={boxesRef} />
