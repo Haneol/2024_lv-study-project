@@ -348,7 +348,7 @@ function Navbar({ scrollToTop }) {
             {location.pathname === "/" ? (
               <h1>
                 <img
-                  src="images/logo.png"
+                  src="/images/logo.png"
                   alt="LV"
                   width="32px"
                   height="32px"
@@ -359,16 +359,16 @@ function Navbar({ scrollToTop }) {
                 />
               </h1>
             ) : (
-              <NavLink to="/" onClick={closeMenu}>
-                <h1 className="block md:hidden">
+              <h1>
+                <NavLink to="/" onClick={closeMenu}>
                   <img
-                    src="images/logo.png"
+                    src="/images/logo.png"
                     alt="LV"
                     width="32px"
                     height="32px"
                   />
-                </h1>
-              </NavLink>
+                </NavLink>
+              </h1>
             )}
 
             <IconMenuArea>
