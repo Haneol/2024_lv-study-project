@@ -31,7 +31,7 @@ function Cart() {
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }
-  });
+  }, [isVisible, setIsOverflow]);
 
   return (
     <>
