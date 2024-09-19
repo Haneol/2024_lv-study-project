@@ -262,7 +262,7 @@ const FloatingButtonArea = styled.div`
 
 // Navbar Components
 
-function Navbar() {
+function Navbar({ scrollToTop }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const [isExpanded, setIsExpanded] = useState(true);
@@ -293,13 +293,6 @@ function Navbar() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   const closeMenu = () => {
@@ -345,7 +338,9 @@ function Navbar() {
                   alt="LV"
                   width="32px"
                   height="32px"
-                  onClick={scrollToTop}
+                  onClick={() => {
+                    scrollToTop();
+                  }}
                   className="hidden md:block cursor-pointer"
                 />
               </h1>
@@ -357,7 +352,9 @@ function Navbar() {
                   alt="LV"
                   width="32px"
                   height="32px"
-                  onClick={scrollToTop}
+                  onClick={() => {
+                    scrollToTop();
+                  }}
                   className="block md:hidden cursor-pointer"
                 />
               </h1>

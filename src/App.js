@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { Provider, useDispatch } from "react-redux";
@@ -31,8 +31,37 @@ function ScrollableContent() {
     dispatch({ type: "SET_SCROLL_POSITION", payload: scrollTop });
   };
 
+  const scrollToTop = useCallback(() => {
+    if (scrollbarsRef.current) {
+      const start = scrollbarsRef.current.getScrollTop();
+      const change = -start;
+      const duration = 500;
+      let startTime = null;
+
+      const animateScroll = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = timestamp - startTime;
+        const percent = Math.min(progress / duration, 1);
+
+        const easeInOutQuad = (t) =>
+          t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        const value = start + change * easeInOutQuad(percent);
+
+        scrollbarsRef.current.scrollTop(value);
+        dispatch({ type: "SET_SCROLL_POSITION", payload: value });
+
+        if (progress < duration) {
+          requestAnimationFrame(animateScroll);
+        } else {
+          dispatch({ type: "SET_SCROLL_POSITION", payload: 0 });
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    }
+  }, [dispatch]);
+
   useEffect(() => {
-    // 페이지 변경 시 스크롤 위치를 맨 위로 초기화
     if (scrollbarsRef.current) {
       scrollbarsRef.current.scrollTop(0);
     }
@@ -48,7 +77,7 @@ function ScrollableContent() {
       autoHide
       onUpdate={handleScroll}
     >
-      <Navbar />
+      <Navbar scrollToTop={scrollToTop} />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomeComp />} />
