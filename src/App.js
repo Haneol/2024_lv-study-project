@@ -20,10 +20,10 @@ function App() {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomeComp />}></Route>
-        <Route path="/shopList" element={<ShopList />}></Route>
-        <Route path="/shopListFamily" element={<ShopListFamily />}></Route>
-        <Route path="/shopListMan" element={<ShopListMan />}></Route>
-        <Route path="/shopListWoman" element={<ShopListWoman />}></Route>
+        <Route path="/shopList/special" element={<ShopList />}></Route>
+        <Route path="/shopList/family" element={<ShopListFamily />}></Route>
+        <Route path="/shopList/men" element={<ShopListMan />}></Route>
+        <Route path="/shopList/women" element={<ShopListWoman />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/Admin" element={<Admin />}></Route>
       </Routes>
