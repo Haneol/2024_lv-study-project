@@ -136,7 +136,7 @@ function SecondSection() {
 
   return (
     <div className="h-screen ">
-      <div className="container mx-auto h-full pt-20 pb-12">
+      <div className="container mx-auto h-full pt-20 pb-12 2xl:px-16">
         {/* Desktop */}
         <div className="hidden md:flex h-full min-h-80 justify-between">
           {/* Left */}

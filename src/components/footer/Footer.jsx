@@ -12,7 +12,7 @@ const FooterArea = styled.div`
 function Footer() {
   return (
     <FooterArea>
-      <div className="container mx-auto text-white font-16">
+      <div className="container mx-auto text-white font-16  px-3">
         {/* Top Area */}
         <div className="flex flex-col md:flex-row items-center md:justify-between mb-4">
           <div className="flex gap-4 mb-5 md:mb-0 cursor-pointer">
