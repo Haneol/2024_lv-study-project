@@ -269,15 +269,12 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const cartList = useSelector((state) => state.cart.cartList);
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY ?? window.pageYOffset;
-      setIsExpanded(currentScrollPos < 50);
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const scrollPosition = useSelector((state) => state.scroll.scrollPosition);
+
+  useEffect(() => {
+    setIsExpanded(scrollPosition < 50);
+  }, [scrollPosition]);
 
   useEffect(() => {
     if (isExpanded) {

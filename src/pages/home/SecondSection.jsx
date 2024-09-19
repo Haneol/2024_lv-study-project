@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import SuggestionCard from "../../components/home/SuggestionCard";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SectionTitle = styled.div`
   display: flex;
@@ -83,6 +84,8 @@ function SecondSection() {
   const [rightWidth, setRightWidth] = useState(window.innerWidth / 40);
   const [mobileWidth, setMobileWidth] = useState(window.innerWidth / 16);
 
+  const scrollPosition = useSelector((state) => state.scroll.scrollPosition);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -93,30 +96,24 @@ function SecondSection() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const threshold = window.innerHeight * 0.5;
+    const threshold = window.innerHeight * 0.5;
 
-      if (scrollPosition > threshold) {
-        if (isMobile) {
-          setMobileWidth(window.innerWidth / 4);
-        } else {
-          setLeftWidth(window.innerWidth / 16);
-          setRightWidth(window.innerWidth / 5);
-        }
+    if (scrollPosition > threshold) {
+      if (isMobile) {
+        setMobileWidth(window.innerWidth / 4);
       } else {
-        if (isMobile) {
-          setMobileWidth(window.innerWidth / 16);
-        } else {
-          setLeftWidth(window.innerWidth / 40);
-          setRightWidth(window.innerWidth / 16);
-        }
+        setLeftWidth(window.innerWidth / 16);
+        setRightWidth(window.innerWidth / 5);
       }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
+    } else {
+      if (isMobile) {
+        setMobileWidth(window.innerWidth / 16);
+      } else {
+        setLeftWidth(window.innerWidth / 40);
+        setRightWidth(window.innerWidth / 16);
+      }
+    }
+  }, [isMobile, scrollPosition]);
 
   const toSpecialDetailPage = () => {
     navigate("/shopList/special");
@@ -135,7 +132,7 @@ function SecondSection() {
   };
 
   return (
-    <div className="h-screen ">
+    <div className="h-screen overflow-hidden">
       <div className="container mx-auto h-full pt-20 pb-12 2xl:px-16">
         {/* Desktop */}
         <div className="hidden md:flex h-full min-h-80 justify-between">

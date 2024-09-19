@@ -5,6 +5,7 @@ import SearchModalInput from "./SearchModalInput";
 import searchIcon from "./search-normal.svg";
 import data from "../../data";
 import { useDispatch, useSelector } from "react-redux";
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 const SearchbarArea = styled.div`
   width: 360px;
@@ -28,6 +29,14 @@ const SearchbarArea = styled.div`
   }
 `;
 
+const renderThumb = ({ style, ...props }) => {
+  const thumbStyle = {
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    borderRadius: "4px",
+  };
+  return <div style={{ ...style, ...thumbStyle }} {...props} />;
+};
+
 function SearchModal() {
   const [searchingData, setSearchingData] = useState([]);
   const isSearchModalVisible = useSelector(
@@ -49,20 +58,34 @@ function SearchModal() {
             setSearchingData([]);
           }}
         >
-          <div
-            className="w-fit mt-5  flex flex-col items-center m-auto"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
+          <Scrollbars
+            style={{ width: "100%", height: "100vh" }}
+            renderThumbVertical={renderThumb}
+            universal={true}
           >
-            <SearchbarArea className="mb-[60px]">
-              <img src={searchIcon} alt="search" className="mr-2" />
-              <SearchModalInput onTextChange={searchWithText} />
-            </SearchbarArea>
-            {searchingData.map((item) => (
-              <SearchModalItemGrid key={item.id} item={item} />
-            ))}
-          </div>
+            <div
+              className="w-fit mt-5  flex flex-col items-center m-auto"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <SearchbarArea className="mb-[60px]">
+                <img src={searchIcon} alt="search" className="mr-2" />
+                <SearchModalInput onTextChange={searchWithText} />
+                <div className="ml-2 w-6 h-4" />
+              </SearchbarArea>
+              {!searchingData || searchingData.length === 0 ? (
+                <div className="text-gray-100 font-20 text-center h-96 flex items-center">
+                  검색 결과가 없어요
+                </div>
+              ) : (
+                searchingData.map((item) => (
+                  <SearchModalItemGrid key={item.id} item={item} />
+                ))
+              )}
+            </div>
+            <div className="h-40"></div>
+          </Scrollbars>
         </div>
       )}
     </>

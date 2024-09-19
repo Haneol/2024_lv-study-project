@@ -3,6 +3,7 @@ import CartItemGrid from "./CartItemGrid";
 import CartFooter from "./CartFooter";
 import { useDispatch, useSelector } from "react-redux";
 import CartPayCompleteModal from "./CartPayCompleteModal";
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 function Cart() {
   const cartList = useSelector((state) => state.cart.cartList);
@@ -47,6 +48,14 @@ function Cart() {
     }
   }, [isCartVisible, setIsOverflow, cartList, isAnimating, dispatch]);
 
+  const renderThumb = ({ style, ...props }) => {
+    const thumbStyle = {
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      borderRadius: "4px",
+    };
+    return <div style={{ ...style, ...thumbStyle }} {...props} />;
+  };
+
   return (
     <>
       <div className="fixed top-0 right-0 z-[1001]">
@@ -67,13 +76,21 @@ function Cart() {
           >
             <img src="/icons/arrow-left.svg" alt="leftArrow" />
           </div>
-          <div className="mt-9 space-y-5 mb-20 ">
-            {cartList != []
-              ? cartSet.map((i) => (
-                  <CartItemGrid key={i.id} item={i} count={itemNum(i.id)} />
-                ))
-              : ""}
-          </div>
+          <Scrollbars
+            style={{ width: "100%", height: "calc(100vh - 260px)" }}
+            renderThumbVertical={renderThumb}
+            autoHide
+          >
+            <div className="flex flex-col justify-center items-center">
+              <div className="mt-9 space-y-5 mb-20">
+                {cartList.length !== 0
+                  ? cartSet.map((i) => (
+                      <CartItemGrid key={i.id} item={i} count={itemNum(i.id)} />
+                    ))
+                  : ""}
+              </div>
+            </div>
+          </Scrollbars>
           {isOverflow ? (
             <div className=" bottom-7">
               <CartFooter isModalVisible={openModal} />
