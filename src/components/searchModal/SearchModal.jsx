@@ -46,6 +46,7 @@ function SearchModal() {
           className="z-[1002] fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
           onClick={() => {
             dispatch({ type: "@modal/searchClose" });
+            setSearchingData([]);
           }}
         >
           <div

@@ -7,15 +7,16 @@ const cartReducer = (state = initialState, action) => {
     case "@cart/cartItemAdd":
       return { ...state, cartList: [...state.cartList, action.payload] };
     case "@cart/cartItemPop":
-      const cartIdx = state.cartList.findIndex(
-        (item) => item.id === action.payload
-      );
+      const cartIdx = [...state.cartList]
+        .reverse()
+        .findIndex((item) => item.id === action.payload);
+      const idx = state.cartList.length - cartIdx - 1;
       if (cartIdx !== -1) {
         return {
           ...state,
           cartList: [
-            ...state.cartList.slice(0, cartIdx),
-            ...state.cartList.slice(cartIdx + 1),
+            ...state.cartList.slice(0, idx),
+            ...state.cartList.slice(idx + 1),
           ],
         };
       }

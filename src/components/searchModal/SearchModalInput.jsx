@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const SearchInput = styled.input`
@@ -18,29 +18,42 @@ const SearchInput = styled.input`
 
 function SearchModalInput({ onTextChange }) {
   const [text, setText] = useState("");
+  const inputRef = useRef(null);
+  const [placeHolder, setPlaceHolder] = useState("search");
   const textChangeHandler = (e) => {
     onTextChange(e.target.value);
     setText(e.target.value);
   };
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        inputRef.current.blur();
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <>
       <SearchInput
         name="searchInput"
-        placeholder="search"
+        ref={inputRef}
+        placeholder={placeHolder}
         autoComplete="off"
         onChange={textChangeHandler}
         value={text}
         className="text-white placeholder-white "
+        onClick={() => {
+          setPlaceHolder("");
+        }}
       />
-      {/* <input
-        name="searchInput"
-        placeholder="Search"
-        className="text-center outline-none bg-transparent text-white font-['Pretendard'] mr-4 w-full placeholder-white"
-        autoComplete="off"
-        onChange={textChangeHandler}
-        value={text}
-      /> */}
     </>
   );
 }
