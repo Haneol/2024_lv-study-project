@@ -28,7 +28,18 @@ function SearchModalInput({ onTextChange }) {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  });
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        inputRef.current.blur();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <>
       <SearchInput
