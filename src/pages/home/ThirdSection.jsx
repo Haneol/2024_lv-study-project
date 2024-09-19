@@ -178,9 +178,9 @@ function ThirdSection() {
 
   return (
     <div className="md:h-screen ">
-      <div className="container mx-auto p-5 md:p-0">
+      <div className="container mx-auto p-5 md:p-0 2xl:px-16">
         <TitleArea>매장 정보</TitleArea>
-        <div className="container p-10 bg-gray-100 bg-opacity-20 rounded-lg">
+        <div className="container p-10 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg">
           <div className="flex flex-wrap">
             <div className="w-full md:w-7/12 mb-5 md:mb-0">
               <div

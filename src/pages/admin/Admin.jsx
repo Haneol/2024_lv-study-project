@@ -159,11 +159,11 @@ function Admin() {
 
   return (
     <div className="md:h-screen">
-      <div className="container mx-auto p-5 md:p-0">
+      <div className="container mx-auto p-5 md:p-0 2xl:px-16">
         <p className="m-6 text-gray-100 text-3xl font-bold">
           Administrator Page
         </p>
-        <div className="container p-10 bg-gray-100 bg-opacity-20 rounded-lg">
+        <div className="container p-10 bg-gray-100 bg-opacity-20 rounded-lg border border-white border-opacity-30">
           <div className="flex flex-wrap">
             <div
               className="rounded-lg pt-5 mb-5 md:mb-0 w-full md:w-4/12 bg-gray-100 bg-opacity-40 flex-col"
