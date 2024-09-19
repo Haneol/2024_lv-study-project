@@ -42,15 +42,23 @@ const ThirdTitle = styled.div`
 `;
 const LocationWrap = styled.div`
   height: calc(100% - 92px);
-  overflow-y: scroll;
+  overflow-y: auto;
   gap: 8px;
-  padding: 0 20px;
+  margin: 0 15px;
+  padding: 0 17px;
 
-  ::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar {
+    width: 10px;
   }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin: 5px 0;
+  }
 `;
 
 function ThirdSection() {
@@ -169,8 +177,8 @@ function ThirdSection() {
     overlayContent.innerHTML = `
       <div class="bg-gray-100 w-64 h-44 shadow-xl px-3 py-3 relative">
         <button 
-          class="absolute font-bold text-lg top-2 right-2 text-gray-500 hover:text-black" 
-        >X</button>
+          class="absolute top-3 right-3 opacity-30 hover:opacity-100" 
+        ><img src="./images/x.jpg" alt=""/></button>
         <p class="font-bold text-base text-left mb-3">${loc.name}</p>
         <div class="flex gap-2"> 
           <img class="w-32 h-28" src="${loc.image}" />
@@ -260,7 +268,7 @@ function ThirdSection() {
                   inMaps.map((item, index) => {
                     return (
                       <div
-                        className="cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mb-2"
+                        className="hover:scale-[1.03] hover:hover:shadow-[0px_2px_15px_rgba(0,0,0,0.2)]  hover:bg-opacity-40 duration-[0.4s] cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mt-2 mb-2"
                         style={{ height: "150px" }}
                         key={index}
                         onClick={() => moveCenter(item)}

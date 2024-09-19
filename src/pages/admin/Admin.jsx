@@ -5,15 +5,23 @@ import SearchModal from "./SearchModal";
 
 const LocationWrap = styled.div`
   height: calc(100% - 20px);
-  overflow-y: scroll;
+  overflow-y: auto;
   gap: 8px;
-  padding: 0 20px;
+  margin: 0 15px;
+  padding: 0 17px;
 
-  ::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar {
+    width: 10px;
   }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin: 5px 0;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -42,6 +50,7 @@ function Admin() {
   const [imageText, setImageText] = useState(null);
   const [modal, setModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [selectedName, setSelectedName] = useState("");
   const locations = useSelector((state) => state.location.locationList);
   const dispatch = useDispatch();
   const map = useRef(null);
@@ -100,12 +109,15 @@ function Admin() {
 
   // 리스트의 항목 클릭시 이동하는 함수
   function moveCenter(loc) {
-    console.log(loc);
     setEditMode(true);
     setInputName(loc.name);
     setInputPhone(loc.phone);
+    setLatitude(loc.latitude);
+    setLongitude(loc.longitude);
     setAddress(loc.address);
+    setImage(loc.image);
     setImageText(loc.image);
+    setSelectedName(loc.name);
     const moveLatLon = new window.kakao.maps.LatLng(
       loc.latitude,
       loc.longitude
@@ -145,6 +157,22 @@ function Admin() {
     clear();
   }
 
+  function editLocation() {
+    const editedData = {
+      name: inputName,
+      phone: inputPhone,
+      address: address,
+      latitude: latitude,
+      longitude: longitude,
+      image: image,
+      selectedName: selectedName,
+    };
+    console.log(editedData);
+    dispatch({ type: "put", payload: editedData });
+    setEditMode(false);
+    clear();
+  }
+
   function clear() {
     setInputName("");
     setInputPhone("");
@@ -153,6 +181,7 @@ function Admin() {
     setLongitude(0);
     setImage(null);
     setImageText(null);
+    setSelectedName("");
   }
 
   function handleImageChange(e) {
@@ -184,7 +213,7 @@ function Admin() {
                   locations.map((item, index) => {
                     return (
                       <div
-                        className="cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mb-2"
+                        className="cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mb-2 mt-2 hover:scale-[1.03] hover:hover:shadow-[0px_2px_15px_rgba(0,0,0,0.2)]  hover:bg-opacity-40 duration-[0.4s]"
                         key={index}
                         onClick={() => moveCenter(item)}
                       >
@@ -245,14 +274,29 @@ function Admin() {
                       </div>
                     )}
                     <button
-                      onClick={addLocation}
-                      className={`w-20 h-7 mr-1 bg-black bg-opacity-20 rounded-full text-white text-opacity-60 ${
+                      onClick={isDisabled ? addLocation : editLocation}
+                      className={`flex justify-center items-center w-20 h-7 mr-1 bg-black bg-opacity-20 rounded-full text-white text-opacity-60 ${
                         !isDisabled &&
                         "hover:bg-opacity-40 hover:text-opacity-100"
                       }`}
                       disabled={isDisabled}
                     >
-                      + 등록
+                      {editMode ? (
+                        <div
+                          className={`flex gap-1 ${
+                            !isDisabled ? "opacity-100" : "opacity-40"
+                          }`}
+                        >
+                          <img
+                            src="./icons/edit-2.svg"
+                            alt=""
+                            className="w-4"
+                          />
+                          <p>수정</p>
+                        </div>
+                      ) : (
+                        <p>+ 등록</p>
+                      )}
                     </button>
                   </div>
                 </div>
