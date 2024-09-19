@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* font */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 /* reset */
 
 * {
@@ -10,11 +13,13 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   background: url("../public/images/GlobalBackground.jpg") no-repeat;
   /* background-size: 100vw 100vh; */
   background-size: cover;
   background-attachment: fixed;
+  font-family: "Pretendard", Arial, Helvetica, sans-serif;
 }
 
 ul,
@@ -26,4 +31,26 @@ li {
 
 a {
   text-decoration: none;
+}
+
+/* global style */
+
+.font-16 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.font-20 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.font-24 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.font-72 {
+  font-size: 72px;
+  line-height: 96px;
 }
