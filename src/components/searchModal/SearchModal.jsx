@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SearchModalItemGrid from "./SearchModalItemGrid";
 import styled from "styled-components";
 import SearchModalInput from "./SearchModalInput";
-import searchIcon from "./search-normal.svg";
 import data from "../../data";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -56,7 +55,11 @@ function SearchModal() {
             }}
           >
             <SearchbarArea className="mb-[60px]">
-              <img src={searchIcon} alt="search" className="mr-2" />
+              <img
+                src={"icons/search-normal.svg"}
+                alt="search"
+                className="mr-2"
+              />
               <SearchModalInput onTextChange={searchWithText} />
             </SearchbarArea>
             {searchingData.map((item) => (
