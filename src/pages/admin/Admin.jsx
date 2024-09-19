@@ -166,7 +166,7 @@ function Admin() {
         <div className="container p-10 bg-gray-100 bg-opacity-20 rounded-lg border border-white border-opacity-30">
           <div className="flex flex-wrap">
             <div
-              className="rounded-lg pt-5 mb-5 md:mb-0 w-full md:w-4/12 bg-gray-100 bg-opacity-40 flex-col"
+              className="rounded-lg pt-5 mb-5 md:mb-0 w-full  md:w-[38.5%] bg-gray-100 bg-opacity-40 flex-col"
               style={{ height: "60vh" }}
             >
               <LocationWrap>

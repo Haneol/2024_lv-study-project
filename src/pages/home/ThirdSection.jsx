@@ -190,7 +190,7 @@ function ThirdSection() {
               ></div>
             </div>
             <div
-              className="rounded-lg w-full md:w-4/12 md:ml-auto bg-gray-100 bg-opacity-40 flex-col"
+              className="rounded-lg w-full md:w-[38%] md:ml-auto bg-gray-100 bg-opacity-40 flex-col"
               style={{ height: "60vh" }}
             >
               <img
