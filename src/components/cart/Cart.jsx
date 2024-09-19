@@ -34,7 +34,7 @@ function Cart() {
       setIsAnimating(true);
       return () => window.removeEventListener("resize", handleResize);
     }
-  }, [isCartVisible, setIsOverflow]);
+  }, [isCartVisible, setIsOverflow, cartList]);
 
   return (
     <>
@@ -42,7 +42,7 @@ function Cart() {
         {isCartVisible && (
           <div
             className={
-              "cartContainer ta overflow-y-auto fixed t-0 w-[500px] h-auto max-h-svh min-h-svh bg-white/20 border border-white/30 backdrop-blur-[80px] flex flex-col items-center right-0 max-md:left-1/2 max-md:-translate-x-1/2"
+              "cartContainer overflow-y-auto fixed t-0 w-[500px] h-auto max-h-svh min-h-svh bg-white/20 border border-white/30 backdrop-blur-[80px] flex flex-col items-center right-0 max-md:left-1/2 max-md:-translate-x-1/2"
             }
           >
             <div className="text-white text-[32px] font-light font-['Pretendard'] leading-loose mt-9">

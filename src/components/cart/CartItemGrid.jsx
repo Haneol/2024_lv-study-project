@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 const PlusMinusButton = styled.div`
-  width: 6px;
-  height: 6px;
+  width: 24px;
+  height: 24px;
   position: relative;
   cursor: pointer;
 `;
