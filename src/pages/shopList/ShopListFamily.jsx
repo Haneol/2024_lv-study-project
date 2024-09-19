@@ -35,7 +35,7 @@ function ShopList() {
           ease: "power2.out",
           scrollTrigger: {
             trigger: box,
-            start: "200px top",
+            start: "450px top",
             end: "bottom top",
             scrub: true,
           },
@@ -74,7 +74,7 @@ function Box({ boxesRef }) {
             to={`/detail/${i + 57}`}
             ref={(el) => (boxesRef.current[i] = el)}
           >
-            <div className="w-full md:w-auto md:h-auto bg-white bg-opacity-60 rounded-2xl flex justify-center items-end p-4 m-3 group hover:bg-opacity-100">
+            <div className="w-full md:w-auto md:h-auto bg-white bg-opacity-60 rounded-2xl flex justify-center items-end p-4 m-3 group hover:bg-opacity-85 hover:shadow-lg hover:shadow-[rgba(31,38,135,0.3)] transition-transform duration-300">
               <div className="flex flex-col justify-center items-center">
                 <img
                   src={item.img[600]}
