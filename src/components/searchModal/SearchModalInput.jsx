@@ -10,9 +10,9 @@ const SearchInput = styled.input`
   margin-right: 16px;
   width: 100%;
   &::placeholder {
-    font-weight: 300;
+    font-weight: 200;
     font-size: 20px;
-    text-indent: -1em;
+    text-indent: 0.5em;
   }
 `;
 
@@ -26,10 +26,12 @@ function SearchModalInput({ onTextChange }) {
     setText(text);
     onTextChange(text);
   };
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+
     const handleClickOutside = (event) => {
       if (inputRef.current && !inputRef.current.contains(event.target)) {
         inputRef.current.blur();
@@ -40,22 +42,29 @@ function SearchModalInput({ onTextChange }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleFocus = () => {
+    setPlaceHolder("");
+  };
+
+  const handleBlur = () => {
+    if (text === "") {
+      setPlaceHolder("search");
+    }
+  };
+
   return (
-    <>
-      <SearchInput
-        name="searchInput"
-        ref={inputRef}
-        placeholder={placeHolder}
-        autoComplete="off"
-        onChange={textChangeHandler}
-        value={text}
-        className="text-white placeholder-white "
-        onClick={(e) => {
-          setPlaceHolder("");
-          e.stopPropagation();
-        }}
-      />
-    </>
+    <SearchInput
+      name="searchInput"
+      ref={inputRef}
+      placeholder={placeHolder}
+      autoComplete="off"
+      onChange={textChangeHandler}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      value={text}
+      className="text-white placeholder-gray-200"
+    />
   );
 }
 

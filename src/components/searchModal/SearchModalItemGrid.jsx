@@ -13,6 +13,8 @@ const SearchItemGridBox = styled.div`
   border-width: 1px;
   border-color: rgb(255 255 255 / 0.3);
   cursor: pointer;
+  transition: 0.2s;
+
   &:active {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.6);
@@ -30,11 +32,9 @@ function SearchModalItemGrid(searchItem) {
   return (
     <>
       <div
-        className="w-[845px] h-[197px] relative"
-        onClick={(e) => {
-          // console.log("gotoDetail");
-          e.stopPropagation();
-          e.preventDefault();
+        className="w-[845px] h-[197px] relative flex justify-end"
+        onClick={() => {
+          console.log("gotoDetail");
         }}
       >
         <SearchItemGridBox>
@@ -43,7 +43,7 @@ function SearchModalItemGrid(searchItem) {
             src={searchItem.item.img[490]}
             alt="itemImg"
           />
-          <div className=" w-[345px] h-[72px] left-[233px] top-[54px] absolute ">
+          <div className=" w-[345px] h-[72px] left-[233px] top-[54px] absolute">
             <div className="w-full truncate left-0 top-0 absolute text-start text-[#4e3e2d] text-2xl font-normal font-['Pretendard'] leading-loose">
               {searchItem.item.name}
             </div>
@@ -51,8 +51,10 @@ function SearchModalItemGrid(searchItem) {
               {searchItem.item.price}
             </div>
           </div>
+        </SearchItemGridBox>
+        <div className="flex items-center h-full mt-[8px] w-[240px] hover:scale-100">
           <div
-            className="w-[122px] h-[73px] py-[5px] right-[48px] top-[54px] absolute bg-black/20 rounded-[100px] border border-white/30 justify-center items-center gap-2.5 inline-flex cursor-pointer"
+            className="px-[60px] py-[24px] right-[48px] absolute bg-black/20 hover:bg-black/30 hover:scale-105 hover:shadow-md duration-200 rounded-[100px] border border-white/30 justify-center items-center gap-2.5 inline-flex cursor-pointer"
             onClick={(e) => {
               dispatch({
                 type: "@cart/cartItemAdd",
@@ -69,7 +71,7 @@ function SearchModalItemGrid(searchItem) {
               </div>
             </div>
           </div>
-        </SearchItemGridBox>
+        </div>
       </div>
     </>
   );
