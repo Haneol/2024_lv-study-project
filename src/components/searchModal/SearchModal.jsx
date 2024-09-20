@@ -69,21 +69,25 @@ function SearchModal() {
             renderThumbVertical={renderThumb}
             universal={true}
           >
-            <div
-              className="w-fit mt-5  flex flex-col items-center m-auto"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <SearchbarArea className="mb-[60px]">
+            <div className="flex justify-center">
+              <SearchbarArea className="mb-[60px] fixed top-6">
                 <img
-                  src={"icons/search-normal.svg"}
+                  src={"/icons/search-normal.svg"}
                   alt="search"
                   className="mr-2"
                 />
                 <SearchModalInput onTextChange={searchWithText} />
                 <div className="ml-2 w-6 h-4" />
               </SearchbarArea>
+              <div className="h-[100px]"></div>
+            </div>
+
+            <div
+              className="w-fit mt-5 flex flex-col items-center m-auto"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
               {!searchingData || searchingData.length === 0 ? (
                 <div className="text-gray-100 font-20 text-center h-96 flex items-center">
                   검색 결과가 없어요
