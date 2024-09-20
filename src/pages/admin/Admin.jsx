@@ -274,7 +274,7 @@ function Admin() {
                       </div>
                     )}
                     <button
-                      onClick={isDisabled ? addLocation : editLocation}
+                      onClick={!editMode ? addLocation : editLocation}
                       className={`flex justify-center items-center w-20 h-7 mr-1 bg-black bg-opacity-20 rounded-full text-white text-opacity-60 ${
                         !isDisabled &&
                         "hover:bg-opacity-40 hover:text-opacity-100"
