@@ -262,22 +262,19 @@ const FloatingButtonArea = styled.div`
 
 // Navbar Components
 
-function Navbar() {
+function Navbar({ scrollToTop }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const cartList = useSelector((state) => state.cart.cartList);
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY ?? window.pageYOffset;
-      setIsExpanded(currentScrollPos < 50);
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const scrollPosition = useSelector((state) => state.scroll.scrollPosition);
+
+  useEffect(() => {
+    setIsExpanded(scrollPosition < 50);
+  }, [scrollPosition]);
 
   useEffect(() => {
     if (isExpanded) {
@@ -296,13 +293,6 @@ function Navbar() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   const closeMenu = () => {
@@ -348,7 +338,9 @@ function Navbar() {
                   alt="LV"
                   width="32px"
                   height="32px"
-                  onClick={scrollToTop}
+                  onClick={() => {
+                    scrollToTop();
+                  }}
                   className="hidden md:block cursor-pointer"
                 />
               </h1>
@@ -356,25 +348,27 @@ function Navbar() {
             {location.pathname === "/" ? (
               <h1>
                 <img
-                  src="images/logo.png"
+                  src="/images/logo.png"
                   alt="LV"
                   width="32px"
                   height="32px"
-                  onClick={scrollToTop}
+                  onClick={() => {
+                    scrollToTop();
+                  }}
                   className="block md:hidden cursor-pointer"
                 />
               </h1>
             ) : (
-              <NavLink to="/" onClick={closeMenu}>
-                <h1 className="block md:hidden">
+              <h1>
+                <NavLink to="/" onClick={closeMenu}>
                   <img
-                    src="images/logo.png"
+                    src="/images/logo.png"
                     alt="LV"
                     width="32px"
                     height="32px"
                   />
-                </h1>
-              </NavLink>
+                </NavLink>
+              </h1>
             )}
 
             <IconMenuArea>

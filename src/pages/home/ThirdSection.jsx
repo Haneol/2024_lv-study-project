@@ -63,6 +63,8 @@ function ThirdSection() {
   const [activeOverLay, setActiveOverLay] = useState(null);
   const map = useRef(null);
 
+  const scrollPosition = useSelector((state) => state.scroll.scrollPosition);
+
   useEffect(() => {
     initMap();
   }, [locations]);
@@ -85,29 +87,23 @@ function ThirdSection() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const threshold = window.innerHeight * 1.1;
-      if (scrollPosition > threshold) {
-        if (isMobile) {
-          setMobileWidth(window.innerWidth / 4);
-        } else {
-          setLeftWidth(window.innerWidth / 16);
-          setRightWidth(window.innerWidth / 5);
-        }
+    const threshold = window.innerHeight * 1.1;
+    if (scrollPosition > threshold) {
+      if (isMobile) {
+        setMobileWidth(window.innerWidth / 4);
       } else {
-        if (isMobile) {
-          setMobileWidth(window.innerWidth / 16);
-        } else {
-          setLeftWidth(window.innerWidth / 40);
-          setRightWidth(window.innerWidth / 16);
-        }
+        setLeftWidth(window.innerWidth / 16);
+        setRightWidth(window.innerWidth / 5);
       }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
+    } else {
+      if (isMobile) {
+        setMobileWidth(window.innerWidth / 16);
+      } else {
+        setLeftWidth(window.innerWidth / 40);
+        setRightWidth(window.innerWidth / 16);
+      }
+    }
+  }, [isMobile, scrollPosition]);
 
   // 지도 생성 함수
   function initMap() {

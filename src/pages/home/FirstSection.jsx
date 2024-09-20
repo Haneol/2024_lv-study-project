@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AnimatedMouseIcon from "../../components/home/AnimatedMouseIcon";
+import { useSelector } from "react-redux";
 
 function FirstSection() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [opacity, setOpacity] = useState(1);
+  const scrollPosition = useSelector((state) => state.scroll.scrollPosition);
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,24 +17,17 @@ function FirstSection() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
+    const windowHeight = window.innerHeight;
 
-      const maxScroll = windowHeight * 0.5;
+    const maxScroll = windowHeight * 0.5;
 
-      if (scrollPosition <= maxScroll) {
-        const newOpacity = 1 - scrollPosition / maxScroll;
-        setOpacity(newOpacity);
-      } else {
-        setOpacity(0);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (scrollPosition <= maxScroll) {
+      const newOpacity = 1 - scrollPosition / maxScroll;
+      setOpacity(newOpacity);
+    } else {
+      setOpacity(0);
+    }
+  }, [scrollPosition]);
 
   return (
     <div className="h-screen flex flex-col justify-center items-center ">

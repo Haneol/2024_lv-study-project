@@ -10,9 +10,9 @@ const SearchInput = styled.input`
   margin-right: 16px;
   width: 100%;
   &::placeholder {
-    font-weight: 300;
+    font-weight: 200;
     font-size: 20px;
-    text-indent: -1em;
+    text-indent: 0.5em;
   }
 `;
 
@@ -20,14 +20,17 @@ function SearchModalInput({ onTextChange }) {
   const [text, setText] = useState("");
   const inputRef = useRef(null);
   const [placeHolder, setPlaceHolder] = useState("search");
+
   const textChangeHandler = (e) => {
     onTextChange(e.target.value);
     setText(e.target.value);
   };
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+
     const handleClickOutside = (event) => {
       if (inputRef.current && !inputRef.current.contains(event.target)) {
         inputRef.current.blur();
@@ -35,26 +38,33 @@ function SearchModalInput({ onTextChange }) {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleFocus = () => {
+    setPlaceHolder("");
+  };
+
+  const handleBlur = () => {
+    if (text === "") {
+      setPlaceHolder("search");
+    }
+  };
+
   return (
-    <>
-      <SearchInput
-        name="searchInput"
-        ref={inputRef}
-        placeholder={placeHolder}
-        autoComplete="off"
-        onChange={textChangeHandler}
-        value={text}
-        className="text-white placeholder-white "
-        onClick={() => {
-          setPlaceHolder("");
-        }}
-      />
-    </>
+    <SearchInput
+      name="searchInput"
+      ref={inputRef}
+      placeholder={placeHolder}
+      autoComplete="off"
+      onChange={textChangeHandler}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      value={text}
+      className="text-white placeholder-gray-200"
+    />
   );
 }
 
