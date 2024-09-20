@@ -28,7 +28,7 @@ function CartFooter({ isModalVisible }) {
             onClick={clickCartPayButton}
           >
             <div className="text-center text-white text-xl font-normal font-['Pretendard'] leading-7 whitespace-nowrap">
-              총 ₩{priceSum}원 구매하기
+              총 ₩{priceSum.toLocaleString()}원 구매하기
             </div>
           </div>
         </div>

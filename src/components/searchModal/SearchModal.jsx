@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SearchModalInput from "./SearchModalInput";
 import data from "../../data";
 import { useDispatch, useSelector } from "react-redux";
+import SearchModalCompleteModal from "./SearchModalCompleteModal";
 
 const SearchbarArea = styled.div`
   width: 360px;
@@ -29,44 +30,51 @@ const SearchbarArea = styled.div`
 
 function SearchModal() {
   const [searchingData, setSearchingData] = useState([]);
+  const [searchingText, setSearchingText] = useState("");
   const isSearchModalVisible = useSelector(
     (state) => state.modal.searchIsVisible
   );
   const searchWithText = (text) => {
-    const filteringData =
-      text !== "" ? data.filter((item) => item.name.includes(text)) : [];
-    setSearchingData(filteringData);
+    if (text.length !== 0 && text !== searchingText) {
+      const filteringData =
+        text !== "" ? data.filter((item) => item.name.includes(text)) : [];
+      setSearchingData(filteringData);
+      setSearchingText(text);
+      console.log(text, searchingText);
+    }
+    console.log(text, searchingText);
   };
   const dispatch = useDispatch();
+
   return (
     <>
       {isSearchModalVisible && (
-        <div
-          className="z-[1002] fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
-          onClick={() => {
-            dispatch({ type: "@modal/searchClose" });
-            setSearchingData([]);
-          }}
-        >
+        <>
+          <SearchModalCompleteModal />
           <div
-            className="w-fit mt-5  flex flex-col items-center m-auto"
-            onClick={(e) => {
-              e.stopPropagation();
+            className="z-[1002] fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
+            onClick={() => {
+              dispatch({ type: "@modal/searchClose" });
+              setSearchingData([]);
             }}
           >
-            <SearchbarArea className="mb-[60px]">
-              <img
-                src={"icons/search-normal.svg"}
-                alt="search"
-                className="mr-2"
-              />
-              <SearchModalInput onTextChange={searchWithText} />
-            </SearchbarArea>
-            {searchingData.map((item) => (
-              <SearchModalItemGrid key={item.id} item={item} />
-            ))}
+            <div className="w-fit mt-5  flex flex-col items-center m-auto">
+              <SearchbarArea className="mb-[60px]">
+                <img
+                  src={"icons/search-normal.svg"}
+                  alt="search"
+                  className="mr-2"
+                />
+                <SearchModalInput onTextChange={searchWithText} />
+              </SearchbarArea>
+              <div>
+                {searchingData.map((item) => (
+                  <SearchModalItemGrid key={item.id} item={item} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

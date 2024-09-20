@@ -31,8 +31,10 @@ function SearchModalItemGrid(searchItem) {
     <>
       <div
         className="w-[845px] h-[197px] relative"
-        onClick={() => {
-          console.log("gotoDetail");
+        onClick={(e) => {
+          // console.log("gotoDetail");
+          e.stopPropagation();
+          e.preventDefault();
         }}
       >
         <SearchItemGridBox>
@@ -56,7 +58,9 @@ function SearchModalItemGrid(searchItem) {
                 type: "@cart/cartItemAdd",
                 payload: searchItem.item,
               });
+              dispatch({ type: "@modal/addOpen" });
               e.stopPropagation();
+              e.preventDefault();
             }}
           >
             <div className="w-6 h-6 justify-center items-center flex">
