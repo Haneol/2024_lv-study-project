@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchModalItemGrid from "./SearchModalItemGrid";
 import styled from "styled-components";
 import SearchModalInput from "./SearchModalInput";
 import data from "../../data";
 import { useDispatch, useSelector } from "react-redux";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import SearchModalCompleteModal from "./SearchModalCompleteModal";
 
 const SearchbarArea = styled.div`
   width: 360px;
@@ -48,12 +49,12 @@ function SearchModal() {
         text !== "" ? data.filter((item) => item.name.includes(text)) : [];
       setSearchingData(filteringData);
       setSearchingText(text);
-      console.log(text, searchingText);
     }
-    console.log(text, searchingText);
   };
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    setSearchingData([]);
+  }, [isSearchModalVisible]);
   return (
     <>
       {isSearchModalVisible && (
@@ -61,9 +62,9 @@ function SearchModal() {
           className="z-[1002] fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
           onClick={() => {
             dispatch({ type: "@modal/searchClose" });
-            setSearchingData([]);
           }}
         >
+          <SearchModalCompleteModal />
           <Scrollbars
             style={{ width: "100%", height: "100vh" }}
             renderThumbVertical={renderThumb}
@@ -83,7 +84,7 @@ function SearchModal() {
             </div>
 
             <div
-              className="w-fit mt-5 flex flex-col items-center m-auto"
+              className="w-full md:w-fit mt-5 flex flex-col items-center m-auto"
               onClick={(e) => {
                 e.stopPropagation();
               }}
