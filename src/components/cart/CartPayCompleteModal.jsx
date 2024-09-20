@@ -10,7 +10,7 @@ function CartPayCompleteModal({ isModalVisible, modalCloseTime }) {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-screen flex justify-center items-center">
+      <div className="z-[1003] fixed top-0 left-0 w-full h-screen flex justify-center items-center">
         <div className="w-[500px] h-[380px] bg-black/20 rounded-[20px] backdrop-blur-[30px] justify-center items-center gap-2.5 inline-flex">
           <div className="w-full flex-col justify-start items-center gap-[55px] inline-flex">
             <div>
