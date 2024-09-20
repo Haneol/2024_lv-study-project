@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-
-const ModalBox = styled.div`
-  background: rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(15px);
-`;
 
 function SearchModalCompleteModal() {
   const dispatch = useDispatch();
@@ -16,7 +9,7 @@ function SearchModalCompleteModal() {
     if (isVisible) {
       const timer = setTimeout(() => {
         dispatch({ type: "@modal/addClose" });
-      }, 1000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [isVisible, dispatch]);
@@ -28,7 +21,7 @@ function SearchModalCompleteModal() {
             <div className="w-full flex-col justify-start items-center gap-[30px] inline-flex ">
               <div>
                 <img
-                  src="icons/okay-circle.svg"
+                  src="/icons/okay-circle.svg"
                   alt="okayCircle"
                   className="w-[141px] h-[141px] object-cover"
                 />
