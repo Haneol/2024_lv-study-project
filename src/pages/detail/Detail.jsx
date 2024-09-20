@@ -32,7 +32,7 @@ function Detail() {
   return (
     <div className="h-screen">
       <div className="container mx-auto mb-5 py-5 lg:mt-32 lg:px-24 flex flex-col md:flex-row">
-        <div className="h-auto bg-white bg-opacity-60 rounded-3xl flex flex-col xl:flex-row items-center relative">
+        <div className="z-[1100] h-auto bg-white bg-opacity-60 rounded-3xl flex flex-col xl:flex-row items-center relative">
           <img
             src={product.img[600]}
             className="scale-75 lg:scale-90 pb-10 object-contain"

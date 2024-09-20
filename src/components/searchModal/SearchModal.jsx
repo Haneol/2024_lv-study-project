@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchModalItemGrid from "./SearchModalItemGrid";
 import styled from "styled-components";
 import SearchModalInput from "./SearchModalInput";
 import data from "../../data";
 import { useDispatch, useSelector } from "react-redux";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import SearchModalCompleteModal from "./SearchModalCompleteModal";
 
 const SearchbarArea = styled.div`
   width: 360px;
@@ -38,15 +39,22 @@ const renderThumb = ({ style, ...props }) => {
 
 function SearchModal() {
   const [searchingData, setSearchingData] = useState([]);
+  const [searchingText, setSearchingText] = useState("");
   const isSearchModalVisible = useSelector(
     (state) => state.modal.searchIsVisible
   );
   const searchWithText = (text) => {
-    const filteringData =
-      text !== "" ? data.filter((item) => item.name.includes(text)) : [];
-    setSearchingData(filteringData);
+    if (text.length !== 0 && text !== searchingText) {
+      const filteringData =
+        text !== "" ? data.filter((item) => item.name.includes(text)) : [];
+      setSearchingData(filteringData);
+      setSearchingText(text);
+    }
   };
   const dispatch = useDispatch();
+  useEffect(() => {
+    setSearchingData([]);
+  }, [isSearchModalVisible]);
   return (
     <>
       {isSearchModalVisible && (
@@ -54,25 +62,33 @@ function SearchModal() {
           className="z-[1002] fixed top-0 w-full h-screen bg-black/20 backdrop-blur-[30px] overflow-y-auto justify-center items-center"
           onClick={() => {
             dispatch({ type: "@modal/searchClose" });
-            setSearchingData([]);
           }}
         >
+          <SearchModalCompleteModal />
           <Scrollbars
             style={{ width: "100%", height: "100vh" }}
             renderThumbVertical={renderThumb}
             universal={true}
           >
+            <div className="flex justify-center">
+              <SearchbarArea className="mb-[60px] fixed top-6">
+                <img
+                  src={"/icons/search-normal.svg"}
+                  alt="search"
+                  className="mr-2"
+                />
+                <SearchModalInput onTextChange={searchWithText} />
+                <div className="ml-2 w-6 h-4" />
+              </SearchbarArea>
+              <div className="h-[100px]"></div>
+            </div>
+
             <div
-              className="w-fit mt-5  flex flex-col items-center m-auto"
+              className="w-full md:w-fit mt-5 flex flex-col items-center m-auto"
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
-              <SearchbarArea className="mb-[60px]">
-                <img src={"icons/search-normal.svg"} alt="search" className="mr-2" />
-                <SearchModalInput onTextChange={searchWithText} />
-                <div className="ml-2 w-6 h-4" />
-              </SearchbarArea>
               {!searchingData || searchingData.length === 0 ? (
                 <div className="text-gray-100 font-20 text-center h-96 flex items-center">
                   검색 결과가 없어요

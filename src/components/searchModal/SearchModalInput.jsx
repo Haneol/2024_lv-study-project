@@ -22,8 +22,9 @@ function SearchModalInput({ onTextChange }) {
   const [placeHolder, setPlaceHolder] = useState("search");
 
   const textChangeHandler = (e) => {
-    onTextChange(e.target.value);
-    setText(e.target.value);
+    const text = e.target.value;
+    setText(text);
+    onTextChange(text);
   };
 
   useEffect(() => {
@@ -36,7 +37,6 @@ function SearchModalInput({ onTextChange }) {
         inputRef.current.blur();
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);

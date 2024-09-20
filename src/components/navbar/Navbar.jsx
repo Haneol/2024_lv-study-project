@@ -376,7 +376,7 @@ function Navbar({ scrollToTop }) {
                 <HoverBlurArea>
                   <CartBadge
                     onClick={onClickCart}
-                    itemCount={cartList.length} //TODO : cart state 가져와서 length로 변경하기
+                    itemCount={cartList.length}
                   />
                 </HoverBlurArea>
                 <HoverBlurArea>
@@ -433,9 +433,7 @@ function Navbar({ scrollToTop }) {
       />
       {location.pathname.startsWith("/Admin") ? null : (
         <FloatingButtonArea onClick={onClickCart}>
-          <CartBadge
-            itemCount={999} //TODO : cart state 가져와서 length로 변경하기
-          />
+          <CartBadge itemCount={cartList.length} />
         </FloatingButtonArea>
       )}
     </>

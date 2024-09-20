@@ -21,7 +21,7 @@ function Cart() {
   const [isAnimating, setIsAnimating] = useState(isCartVisible);
   const modalStyle = {
     transform: isAnimating ? "translateX(0)" : "translateX(100%)", // 애니메이션 효과
-    transition: "transform 1s ease",
+    transition: "transform 0.5s ease",
   };
   const dispatch = useDispatch();
 
@@ -61,7 +61,7 @@ function Cart() {
       <div className="fixed top-0 right-0 z-[1001]">
         <div
           className={
-            "cartContainer overflow-y-auto fixed t-0 w-[500px] h-auto max-h-svh min-h-svh bg-white/20 border border-white/30 backdrop-blur-[80px] flex flex-col items-center right-0 max-md:left-1/2 max-md:-translate-x-1/2"
+            "cartContainer overflow-y-auto fixed t-0 w-full md:w-[500px] h-auto max-h-svh min-h-svh bg-white/20 border border-white/30 backdrop-blur-[80px] flex flex-col items-center right-0"
           }
           style={modalStyle}
         >
