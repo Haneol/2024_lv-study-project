@@ -334,7 +334,7 @@ function Navbar({ scrollToTop }) {
               </ArrowButton>
               <h1>
                 <img
-                  src="images/logo.png"
+                  src="/images/logo.png"
                   alt="LV"
                   width="32px"
                   height="32px"
@@ -366,6 +366,7 @@ function Navbar({ scrollToTop }) {
                     alt="LV"
                     width="32px"
                     height="32px"
+                    className="block md:hidden cursor-pointer"
                   />
                 </NavLink>
               </h1>
@@ -381,13 +382,13 @@ function Navbar({ scrollToTop }) {
                 </HoverBlurArea>
                 <HoverBlurArea>
                   <AdminNavLink to="/Admin">
-                    <img src="icons/setting.svg" alt="Admin" />
+                    <img src="/icons/setting.svg" alt="Admin" />
                   </AdminNavLink>
                 </HoverBlurArea>
               </div>
               <div className="block md:hidden">
                 <HoverBlurArea onClick={onClickSearch}>
-                  <img src="icons/search.svg" alt="" />
+                  <img src="/icons/search.svg" alt="" />
                 </HoverBlurArea>
               </div>
             </IconMenuArea>
@@ -397,7 +398,7 @@ function Navbar({ scrollToTop }) {
             <ul className="flex flex-col items-center md:flex-row pb-5">
               <li className="hidden md:block">
                 <MenuNavLink to="/">
-                  <img src="icons/home.svg" alt="홈" />
+                  <img src="/icons/home.svg" alt="홈" />
                 </MenuNavLink>
               </li>
               <li className="text-white font-bold font-16" onClick={closeMenu}>
@@ -422,15 +423,15 @@ function Navbar({ scrollToTop }) {
           </BottomArea>
         </div>
       </NavbarArea>
-      <div
+      {/* <div
         style={
-          location.pathname === "/"
+          location.pathname !== "/Admin"
             ? { height: "0" }
             : isMobile
             ? { height: "64px" }
             : { height: "130px" }
         }
-      />
+      /> */}
       {location.pathname.startsWith("/Admin") ? null : (
         <FloatingButtonArea onClick={onClickCart}>
           <CartBadge itemCount={cartList.length} />

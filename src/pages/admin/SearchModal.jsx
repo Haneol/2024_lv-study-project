@@ -11,7 +11,8 @@ const ModalWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  backdrop-filter: blur(5px);
+  z-index: 2000;
 `;
 
 const Inner = styled.div`
@@ -32,6 +33,8 @@ const ClickArea = styled.div`
 
 const StyledInput = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  padding: 10px 20px;
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.6);
@@ -130,6 +133,7 @@ function SearchModal({
       }
     });
   }
+
   const setlatlng = () => {
     setLatitude(marker.current.getPosition().getLat());
     setLongitude(marker.current.getPosition().getLng());
@@ -139,11 +143,14 @@ function SearchModal({
   const closeModal = () => {
     setModal(false);
   };
+
   return (
     <ModalWrap>
       <ClickArea className="clickArea" onClick={closeModal} />
       <Inner className="inner bg-white bg-opacity-80 rounded-lg">
-        <h5 className="text-center mb-3">위치 검색하기</h5>
+        <h5 className="text-center mb-3 font-extrabold font-20">
+          위치 검색하기
+        </h5>
         <div className="mb-3">
           <StyledInput
             className="bg-gray-500 bg-opacity-10 rounded-lg px-2 w-full"
@@ -163,18 +170,18 @@ function SearchModal({
           className="mb-3 rounded-lg"
           style={{ width: "100%", height: "300px" }}
         ></div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setlatlng()}
-            className="bg-green-400 rounded-lg px-2 bg-opacity-60 hover:bg-opacity-100"
-          >
-            설정하기
-          </button>
+        <div className="flex gap-2 justify-end">
           <button
             onClick={closeModal}
-            className="bg-red-300 rounded-lg px-2 bg-opacity-60 hover:bg-opacity-100"
+            className="rounded-lg px-2 bg-opacity-60 hover:bg-opacity-100"
           >
-            닫기
+            취소
+          </button>
+          <button
+            onClick={() => setlatlng()}
+            className="transition duration-200 bg-black rounded-2xl px-4 py-1 bg-opacity-20 hover:bg-opacity-40 hover:text-white hover:font-light"
+          >
+            확인
           </button>
         </div>
       </Inner>

@@ -255,7 +255,7 @@ function ThirdSection() {
               style={{ height: "60vh" }}
             >
               <img
-                src="./images/brandName.jpg"
+                src="/images/brandName.png"
                 className="my-7 mx-auto w-52 h-9"
                 alt=""
               />
@@ -264,13 +264,13 @@ function ThirdSection() {
                   inMaps.map((item, index) => {
                     return (
                       <div
-                        className="hover:scale-[1.03] hover:hover:shadow-[0px_2px_15px_rgba(0,0,0,0.2)]  hover:bg-opacity-40 duration-[0.4s] cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mt-2 mb-2"
+                        className="hover:scale-[1.03] hover:shadow-[0px_2px_15px_rgba(0,0,0,0.1)] hover:bg-opacity-50 hover:backdrop-blur-sm duration-300 cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mt-2 mb-2"
                         style={{ height: "150px" }}
                         key={index}
                         onClick={() => moveCenter(item)}
                       >
                         <div className="flex flex-col gap-4 text-center md:text-left text-base md:text-xs lg:text-base lg py-5 px-7">
-                          <p className="font-semibold">{item.name}</p>
+                          <p className="font-bold">{item.name}</p>
                           <p>{item.address}</p>
                           <p>{item.phone}</p>
                         </div>

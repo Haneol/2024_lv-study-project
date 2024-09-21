@@ -14,7 +14,7 @@ const CartBadge = ({ itemCount = 0, onClick }) => {
   return (
     <div className="relative inline-block">
       <img
-        src="icons/cart.svg"
+        src="/icons/cart.svg"
         alt="cart"
         className="w-6 h-6 cursor-pointer"
         onClick={onClick}

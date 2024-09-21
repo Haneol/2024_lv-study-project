@@ -1,7 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import data from "../../data";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
+const DetailArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 64px);
+
+  @media (min-width: 768px) {
+    height: calc(100vh - 130px);
+  }
+`;
 
 function Detail() {
   const { id } = useParams();
@@ -17,56 +29,69 @@ function Detail() {
 
   const addToCart = () => {
     dispatch({
-      type: "@cart/cartItemAdd", // cartReducer에서 정의한 액션 타입
-      payload: product, // 상품 정보를 payload로 전달
+      type: "@cart/cartItemAdd",
+      payload: product,
     });
-
-    setShowMessage(true); // 메시지 표시
-
-    // 1초 후 메시지 숨기기
+    setShowMessage(true);
     setTimeout(() => {
       setShowMessage(false);
     }, 1000);
   };
 
   return (
-    <div className="h-screen">
-      <div className="container mx-auto mb-5 py-5 lg:mt-32 lg:px-24 flex flex-col md:flex-row">
-        <div className="z-[1100] h-auto bg-white bg-opacity-60 rounded-3xl flex flex-col xl:flex-row items-center relative">
-          <img
-            src={product.img[600]}
-            className="scale-75 lg:scale-90 pb-10 object-contain"
-          ></img>
-          <button
-            onClick={goBack}
-            className="absolute top-8 right-10 bg-gray-500 hover:bg-gray-700 text-white text-lg font-bold py-2 px-4 rounded-full"
-          >
-            X
-          </button>
-          <div className="flex flex-col p-12 xl:w-1/2">
-            <p className=" text-gray-800">{product.num}</p>
-            <p className="name text-2xl mb-8 mt-6">{product.name}</p>
-            <p className="text-gray-800">{product.text}</p>
-            <p className="font-bold text-2xl mb-10 mt-8 text-center xl:text-start">
-              {product.price}
-            </p>
+    <div>
+      <div className="h-[64px] md:h-[130px]" />
+      <DetailArea>
+        <div className="container mx-auto px-4 md:py-10 ">
+          <div className="bg-white bg-opacity-60 backdrop-filter backdrop-blur-sm rounded-3xl flex flex-col md:flex-row items-center relative">
+            <div className="w-full md:w-1/2 h-[40%] md:h-full p-4 flex items-center justify-center">
+              <img
+                src={product.img[600]}
+                alt={product.name}
+                className="w-full h-[40vh] md:h-[70vh] object-contain"
+              />
+            </div>
             <button
-              onClick={addToCart}
-              className="bg-black bg-opacity-30 text-white rounded-full w-full h-16  hover:bg-gray-500"
+              onClick={goBack}
+              className="absolute top-4 right-4 bg-gray-500 hover:bg-gray-700 text-white text-lg font-bold py-2 px-4 rounded-full transition-all duration-300"
             >
-              쇼핑백에 추가
+              X
             </button>
-            <p className="text-xs text-gray-800 text-center mt-6">
-              모든 제품 무료 배송 & 선물 포장 서비스 혜택
-            </p>
+            <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col p-4 md:p-8 justify-between">
+              <div>
+                <p className="text-gray-800 text-[clamp(0.8rem,1.5vw,1rem)]">
+                  {product.num}
+                </p>
+                <p className="name text-[clamp(1.2rem,2.5vw,2rem)] mb-2 md:mb-4 mt-2">
+                  {product.name}
+                </p>
+                <p className="text-gray-800 text-[clamp(0.8rem,1.5vw,1rem)] mb-2 md:mb-4">
+                  {product.text}
+                </p>
+              </div>
+              <div>
+                <p className="font-bold text-[clamp(1.2rem,2.5vw,2rem)] mb-4 md:mb-6 text-center md:text-start">
+                  {product.price}
+                </p>
+                <button
+                  onClick={addToCart}
+                  className="bg-black bg-opacity-30 text-white rounded-full w-full py-3 md:py-4 hover:bg-opacity-50 transition-all duration-300 text-[clamp(0.9rem,1.8vw,1.1rem)]"
+                >
+                  쇼핑백에 추가
+                </button>
+                <p className="text-[clamp(0.6rem,1.2vw,0.75rem)] text-gray-800 text-center mt-2">
+                  모든 제품 무료 배송 & 선물 포장 서비스 혜택
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      {showMessage && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black text-white px-6 py-4 rounded-lg z-50">
-          장바구니에 상품이 담겼습니다 !
-        </div>
-      )}
+        {showMessage && (
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-80 text-white px-6 py-4 rounded-lg z-50 backdrop-filter backdrop-blur-sm">
+            장바구니에 상품이 담겼습니다 !
+          </div>
+        )}
+      </DetailArea>
     </div>
   );
 }

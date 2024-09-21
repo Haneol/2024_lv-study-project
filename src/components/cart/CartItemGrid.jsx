@@ -51,7 +51,7 @@ function CartItemGrid(cartItem) {
               <div className="w-6 h-6 left-[75px] top-[4px] absolute justify-center items-center inline-flex cursor-pointer">
                 <PlusMinusButton>
                   <img
-                    src="icons/add-square.svg"
+                    src="/icons/add-square.svg"
                     alt="addSquare"
                     onClick={() => {
                       dispatch({
@@ -65,7 +65,7 @@ function CartItemGrid(cartItem) {
               <div className="w-6 h-6 left-0 top-[4px] absolute justify-center items-center inline-flex cursor-pointer">
                 <PlusMinusButton>
                   <img
-                    src="icons/minus-square.svg"
+                    src="/icons/minus-square.svg"
                     alt="minusSquare"
                     onClick={() => {
                       dispatch({

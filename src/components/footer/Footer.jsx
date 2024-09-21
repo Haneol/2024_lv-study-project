@@ -17,7 +17,7 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center md:justify-between mb-4">
           <div className="flex gap-4 mb-5 md:mb-0 cursor-pointer">
             <p>배송지 : </p>
-            <img src="images/kor.jpg" alt="" className="rounded-sm" />
+            <img src="/images/kor.jpg" alt="" className="rounded-sm" />
             <p>대한민국</p>
           </div>
           <div className="flex gap-10">
@@ -50,7 +50,7 @@ function Footer() {
         <div className="flex justify-center">
           <div className="absolute bottom-10">
             <img
-              src="images/logo_text.png"
+              src="/images/logo_text.png"
               alt=""
               width="200px"
               height="36px"

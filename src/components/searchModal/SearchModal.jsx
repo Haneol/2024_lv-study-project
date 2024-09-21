@@ -70,22 +70,40 @@ function SearchModal() {
             renderThumbVertical={renderThumb}
             universal={true}
           >
-            <div className="flex justify-center">
-              <SearchbarArea className="mb-[60px] fixed top-6">
-                <img
-                  src={"/icons/search-normal.svg"}
-                  alt="search"
-                  className="mr-2"
-                />
-                <SearchModalInput onTextChange={searchWithText} />
-                <div className="ml-2 w-6 h-4" />
-              </SearchbarArea>
-              <div className="h-[100px]"></div>
+            <div className="flex justify-center ">
+              <div
+                className="flex justify-center items-center mb-[60px] fixed top-6 gap-8 md:gap-0 z-[1010]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                <SearchbarArea>
+                  <img
+                    src={"/icons/search-normal.svg"}
+                    alt="search"
+                    className="mr-2"
+                  />
+                  <SearchModalInput onTextChange={searchWithText} />
+                  <div className="ml-2 w-6 h-4" />
+                </SearchbarArea>
+                <div
+                  className="block md:hidden text-white font-18 cursor-pointer transition duration-100 ease-in-out active:scale-95"
+                  onClick={(e) => {
+                    dispatch({ type: "@modal/searchClose" });
+                  }}
+                >
+                  닫기
+                </div>
+              </div>
             </div>
 
+            <div className="h-[100px]"></div>
+
             <div
-              className="w-full md:w-fit mt-5 flex flex-col items-center m-auto"
+              className="w-full px-8 mt-5 flex flex-col items-center m-auto"
               onClick={(e) => {
+                dispatch({ type: "@modal/searchClose" });
                 e.stopPropagation();
               }}
             >

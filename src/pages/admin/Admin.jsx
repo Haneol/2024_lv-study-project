@@ -29,12 +29,13 @@ const StyledInput = styled.input`
 
   &::placeholder {
     opacity: 0.8;
-    color: #e0e0e0;
-
+    color: #ffffff;
     font-size: 12px;
   }
 
   &:focus {
+    opacity: 1;
+    font-size: 14px;
     outline: none;
     border: 3px solid rgba(255, 255, 255, 100);
   }
@@ -197,7 +198,7 @@ function Admin() {
   }
 
   return (
-    <div className="md:h-screen">
+    <div className="md:h-screen py-12 md:py-32">
       <div className="container mx-auto p-5 md:p-0 2xl:px-16">
         <p className="m-6 text-gray-100 text-3xl font-bold">
           Administrator Page
@@ -213,7 +214,7 @@ function Admin() {
                   locations.map((item, index) => {
                     return (
                       <div
-                        className="cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mb-2 mt-2 hover:scale-[1.03] hover:hover:shadow-[0px_2px_15px_rgba(0,0,0,0.2)]  hover:bg-opacity-40 duration-[0.4s]"
+                        className="cursor-pointer rounded-lg w-full bg-gray-100 bg-opacity-30 mb-2 mt-2 hover:scale-[1.03] hover:hover:shadow-[0px_4px_8px_rgba(0,0,0,0.1)]  hover:bg-opacity-40 duration-[0.2s]"
                         key={index}
                         onClick={() => moveCenter(item)}
                       >
@@ -263,15 +264,15 @@ function Admin() {
                   </h1>
                   <div className="flex items-start gap-4">
                     {editMode && (
-                      <div
-                        className="text-white cursor-pointer"
+                      <p
+                        className="transition duration-300 ease-in-out hover:text-white hover:text-shadow-glow hover:scale-110 text-gray-100 pt-0.5 cursor-pointer"
                         onClick={() => {
                           setEditMode(false);
                           clear();
                         }}
                       >
                         취소
-                      </div>
+                      </p>
                     )}
                     <button
                       onClick={!editMode ? addLocation : editLocation}
@@ -287,15 +288,18 @@ function Admin() {
                             !isDisabled ? "opacity-100" : "opacity-40"
                           }`}
                         >
-                          <img
-                            src="./icons/edit-2.svg"
-                            alt=""
-                            className="w-4"
-                          />
-                          <p>수정</p>
+                          <img src="/icons/edit-2.svg" alt="" className="w-4" />
+                          <p className="font-light text-white">수정</p>
                         </div>
                       ) : (
-                        <p>+ 등록</p>
+                        <div
+                          className={`flex gap-1 ${
+                            !isDisabled ? "opacity-100" : "opacity-40"
+                          }`}
+                        >
+                          <img src="/icons/add.svg" alt="" className="w-4" />
+                          <p className="font-light text-white">등록</p>
+                        </div>
                       )}
                     </button>
                   </div>
@@ -331,7 +335,7 @@ function Admin() {
                         <img src="./images/mapIcon.jpg" alt="" />
                         <p
                           className={`${
-                            address ? "text-white" : "text-gray-200"
+                            address ? "text-white" : "text-gray-100"
                           }  text-xs whitespace-nowrap overflow-hidden text-ellipsis`}
                         >
                           {address ? address : `장소 검색하기`}
@@ -346,7 +350,7 @@ function Admin() {
                     >
                       <p
                         className={`whitespace-nowrap overflow-hidden text-ellipsis ${
-                          imageText ? "text-white" : "text-gray-200"
+                          imageText ? "text-white" : "text-gray-100"
                         } text-xs w-full text-center`}
                       >
                         {imageText ? imageText : `이미지를 선택해주세요.`}

@@ -4,16 +4,23 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchItemGridBox = styled.div`
-  height: 180px;
-  left: 0px;
-  top: 17px;
-  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 28px;
+  align-items: center;
   background-color: rgb(255 255 255 / 0.3);
   border-radius: 20px;
   border-width: 1px;
   border-color: rgb(255 255 255 / 0.3);
   cursor: pointer;
   transition: 0.2s;
+
+  height: 120px;
+
+  @media (min-width: 768px) {
+    height: 180px;
+  }
 
   &:active {
     background: rgba(255, 255, 255, 0.2);
@@ -33,48 +40,48 @@ function SearchModalItemGrid(searchItem) {
   return (
     <>
       <div
-        className="w-[600px] md:w-[845px] h-[197px] relative flex justify-end"
+        className="w-full max-w-[815px] flex justify-end mb-4"
         onClick={(e) => {
           navigate(`/detail/${searchItem.item.id}`);
           dispatch({ type: "@modal/searchClose" });
           e.stopPropagation();
         }}
       >
-        <SearchItemGridBox className="w-full md:w-[845px]">
-          <img
-            className="w-[185.85px] h-[180px] left-[31px]  absolute "
-            src={searchItem.item.img[490]}
-            alt="itemImg"
-          />
-          <div className=" w-[345px] h-[72px] left-[233px] top-[54px] absolute">
-            <div className="w-full truncate left-0 top-0 absolute text-start text-[#4e3e2d] text-lg md:text-2xl font-normal font-['Pretendard'] leading-loose">
-              {searchItem.item.name}
-            </div>
-            <div className="left-0 top-[40px] absolute text-center text-[#4e3e2d] text-lg md:text-2xl font-normal font-['Pretendard'] leading-loose">
-              {searchItem.item.price}
+        <SearchItemGridBox>
+          <div className="h-full flex items-center">
+            <img
+              className="h-full"
+              src={searchItem.item.img[490]}
+              alt="itemImg"
+            />
+            <div className="flex flex-col items-start w-full">
+              <div className="w-full truncate text-start text-[#4e3e2d] text-base sm:text-lg md:text-xl lg:text-2xl font-normal font-['Pretendard'] leading-tight mb-2">
+                {searchItem.item.name}
+              </div>
+              <div className="text-start text-[#4e3e2d] text-base sm:text-lg md:text-xl lg:text-2xl font-normal font-['Pretendard'] leading-tight">
+                {searchItem.item.price}
+              </div>
             </div>
           </div>
-        </SearchItemGridBox>
-        <div className="flex items-center h-full mt-[8px] w-[240px] hover:scale-100">
-          <div
-            className="mt-[8px] w-[80px] md:w-[240px] px-[60px] py-[24px] right-[48px] absolute bg-black/20 hover:bg-black/30 hover:scale-105 hover:shadow-md duration-200 rounded-[100px] border border-white/30 justify-center items-center gap-2.5 inline-flex cursor-pointer"
-            onClick={(e) => {
-              dispatch({
-                type: "@cart/cartItemAdd",
-                payload: searchItem.item,
-              });
-              dispatch({ type: "@modal/addOpen" });
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-          >
-            <div className="w-6 h-6 justify-center items-center flex">
-              <div className="w-6 h-6 relative">
+          <div className="flex items-center h-full mt-[8px] hover:scale-100">
+            <div
+              className="mt-[8px] px-[40px] md:px-[60px] py-[16px] md:py-[24px] right-[48px] bg-black/20 hover:bg-black/30 hover:scale-105 hover:shadow-md duration-200 rounded-[100px] border border-white/30 justify-center items-center gap-2.5 inline-flex cursor-pointer"
+              onClick={(e) => {
+                dispatch({
+                  type: "@cart/cartItemAdd",
+                  payload: searchItem.item,
+                });
+                dispatch({ type: "@modal/addOpen" });
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+            >
+              <div className="justify-center items-center flex">
                 <img src="/icons/shopping-cart.svg" alt="shopping" />
               </div>
             </div>
           </div>
-        </div>
+        </SearchItemGridBox>
       </div>
     </>
   );

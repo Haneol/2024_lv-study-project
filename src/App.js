@@ -25,10 +25,17 @@ function ScrollableContent() {
   const dispatch = useDispatch();
   const location = useLocation();
   const scrollbarsRef = useRef();
+  const prevPathRef = useRef(location.pathname);
+  const scrollPositionRef = useRef(0);
 
   const handleScroll = (values) => {
     const { scrollTop } = values;
     dispatch({ type: "SET_SCROLL_POSITION", payload: scrollTop });
+
+    // Store scroll position for ShopList pages
+    if (location.pathname.includes("/shopList")) {
+      scrollPositionRef.current = scrollTop;
+    }
   };
 
   const scrollToTop = useCallback(() => {
@@ -62,10 +69,26 @@ function ScrollableContent() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (scrollbarsRef.current) {
-      scrollbarsRef.current.scrollTop(0);
+    const isBackToShopList =
+      prevPathRef.current.includes("/detail") &&
+      location.pathname.includes("/shopList");
+
+    if (!location.pathname.includes("/detail")) {
+      if (scrollbarsRef.current) {
+        if (isBackToShopList) {
+          // Restore scroll position when navigating back from /detail to /shopList
+          scrollbarsRef.current.scrollTop(scrollPositionRef.current);
+        } else {
+          // Reset scroll position for other navigations
+          scrollbarsRef.current.scrollTop(0);
+        }
+      }
+      if (!isBackToShopList) {
+        dispatch({ type: "SET_SCROLL_POSITION", payload: 0 });
+      }
     }
-    dispatch({ type: "SET_SCROLL_POSITION", payload: 0 });
+
+    prevPathRef.current = location.pathname;
   }, [location, dispatch]);
 
   return (
