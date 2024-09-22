@@ -15,10 +15,10 @@ const ThirdTitle = styled.div`
     transition: width 0.3s ease-out;
   }
   & > div:nth-child(1) {
-    width: ${(props) => props.leftWidth}px;
+    width: ${(props) => props.$leftWidth}px;
   }
   & > div:nth-child(3) {
-    width: ${(props) => props.rightWidth}px;
+    width: ${(props) => props.$rightWidth}px;
   }
   & > p {
     margin: 0 10px;
@@ -36,7 +36,7 @@ const ThirdTitle = styled.div`
     justify-content: center;
     & > div:nth-child(1),
     & > div:nth-child(3) {
-      width: ${(props) => props.mobileWidth}px;
+      width: ${(props) => props.$mobileWidth}px;
     }
   }
 `;
@@ -75,6 +75,7 @@ function ThirdSection() {
 
   useEffect(() => {
     initMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locations]);
 
   useEffect(() => {
@@ -231,9 +232,9 @@ function ThirdSection() {
     <div className="md:h-screen ">
       <div className="container mx-auto p-5 md:p-0 2xl:px-16">
         <ThirdTitle
-          leftWidth={leftWidth}
-          rightWidth={rightWidth}
-          mobileWidth={mobileWidth}
+          $leftWidth={leftWidth}
+          $rightWidth={rightWidth}
+          $mobileWidth={mobileWidth}
           className="mb-8"
         >
           <div />

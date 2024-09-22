@@ -76,6 +76,7 @@ function SearchModal({
         }
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initMap = (lat, lng) => {

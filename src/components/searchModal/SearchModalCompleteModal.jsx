@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 function SearchModalCompleteModal() {
   const dispatch = useDispatch();
   const isVisible = useSelector((state) => state.modal.addIsVisible);
-  const cartList = useSelector((state) => state.cart.cartList);
   useEffect(() => {
     if (isVisible) {
       const timer = setTimeout(() => {

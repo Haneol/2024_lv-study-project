@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { Provider, useDispatch } from "react-redux";
 import HomeComp from "./pages/home/HomeComp";

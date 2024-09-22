@@ -15,10 +15,10 @@ const SectionTitle = styled.div`
     transition: width 0.3s ease-out;
   }
   & > div:nth-child(1) {
-    width: ${(props) => props.leftWidth}px;
+    width: ${(props) => props.$leftWidth}px;
   }
   & > div:nth-child(3) {
-    width: ${(props) => props.rightWidth}px;
+    width: ${(props) => props.$rightWidth}px;
   }
   & > p {
     margin: 0 10px;
@@ -36,7 +36,7 @@ const SectionTitle = styled.div`
     justify-content: center;
     & > div:nth-child(1),
     & > div:nth-child(3) {
-      width: ${(props) => props.mobileWidth}px;
+      width: ${(props) => props.$mobileWidth}px;
     }
   }
 `;
@@ -139,9 +139,9 @@ function SecondSection() {
           {/* Left */}
           <div className="w-1/2 h-full flex flex-col justify-between z-10">
             <SectionTitle
-              leftWidth={leftWidth}
-              rightWidth={rightWidth}
-              mobileWidth={mobileWidth}
+              $leftWidth={leftWidth}
+              $rightWidth={rightWidth}
+              $mobileWidth={mobileWidth}
             >
               <div />
               <p>선물 제안</p>
@@ -197,9 +197,9 @@ function SecondSection() {
         {/* Mobile */}
         <div className="flex md:hidden flex-col h-full min-h-80 justify-between items-center">
           <SectionTitle
-            leftWidth={leftWidth}
-            rightWidth={rightWidth}
-            mobileWidth={mobileWidth}
+            $leftWidth={leftWidth}
+            $rightWidth={rightWidth}
+            $mobileWidth={mobileWidth}
           >
             <div />
             <p>선물 제안</p>

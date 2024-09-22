@@ -60,6 +60,7 @@ function Admin() {
 
   useEffect(() => {
     initMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locations]);
 
   // 지도 생성 함수
@@ -345,7 +346,7 @@ function Admin() {
 
                     <label
                       htmlFor="file"
-                      className="border border-white cursor-pointer flex justify-center items-center border-white bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
+                      className="border border-white cursor-pointer flex justify-center items-center bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
                       style={{ width: "47%" }}
                     >
                       <p

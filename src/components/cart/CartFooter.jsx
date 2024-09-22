@@ -5,7 +5,7 @@ function CartFooter({ isModalVisible }) {
   const cartList = useSelector((state) => state.cart.cartList);
   const dispatch = useDispatch();
   const priceSum =
-    cartList != []
+    cartList.length !== 0
       ? cartList.reduce((sum, item) => {
           const numPrice = parseInt(item.price.replace(/[^0-9]/g, ""), 10);
           return sum + numPrice;

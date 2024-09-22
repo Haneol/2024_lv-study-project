@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
 
 const CardWrapper = styled.div`
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  transform: ${({ isVisible, inx }) => {
-    if (!isVisible) {
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transform: ${({ $isVisible, inx }) => {
+    if (!$isVisible) {
       switch (inx) {
         case 0:
           return "translateX(-50px)";
@@ -44,7 +44,7 @@ const CardArea = styled.div`
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   position: relative;
-  ${({ zIndex }) => `z-index: ${zIndex};`}
+  ${(props) => `z-index: ${props.$zIndex};`}
   overflow: visible;
   width: 100%;
   height: 100%;
@@ -151,12 +151,12 @@ const FloatingImage = styled.img`
   height: auto;
   transition: all 0.3s ease-in-out;
   ${({ position }) => position}
-  ${({ zIndex }) => `z-index: ${zIndex + 1};`}
+  ${(props) => `z-index: ${props.$zIndex + 1};`}
 
   /* 모바일 */
   @media (max-width: 768px) {
     width: 120px;
-    ${({ mobilePosition, position }) => mobilePosition || position}
+    ${({ $mobilePosition, position }) => $mobilePosition || position}
   }
 `;
 
@@ -184,7 +184,7 @@ const Title = styled.h2`
   }
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   color: white;
   font-size: 10px;
   line-height: 14px;
@@ -211,7 +211,7 @@ function SuggestionCard({
   desc,
   imageSrc,
   imagePosition,
-  imageMobilePosition,
+  imagemobilePosition,
   zIndex = 0,
   onClick,
 }) {
@@ -223,17 +223,17 @@ function SuggestionCard({
   const descLines = desc.split("<br>");
 
   return (
-    <CardWrapper ref={ref} isVisible={inView} inx={inx}>
+    <CardWrapper ref={ref} $isVisible={inView} inx={inx}>
       {imageSrc && (
         <FloatingImage
           src={imageSrc}
           alt={title}
           position={imagePosition}
-          mobilePosition={imageMobilePosition}
-          zIndex={zIndex}
+          $mobilePosition={imagemobilePosition}
+          $zIndex={zIndex}
         />
       )}
-      <CardArea inx={inx} zIndex={zIndex} onClick={onClick}>
+      <CardArea inx={inx} $zIndex={zIndex} onClick={onClick}>
         <Title>{title}</Title>
         <Description>
           {descLines.map((item, i) => (

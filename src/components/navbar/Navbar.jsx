@@ -22,7 +22,7 @@ const NavbarArea = styled.div`
   height: 64px;
   padding: 6px 0px;
   ${(props) =>
-    props.isMenuOpen &&
+    props.$isMenuOpen &&
     `
     height: 280px;
   `}
@@ -32,7 +32,7 @@ const NavbarArea = styled.div`
     height: 80px;
     padding: 20px 0px;
     ${(props) =>
-      (props.isExpanded || props.isMenuOpen) &&
+      (props.$isExpanded || props.$isMenuOpen) &&
       `
       height: 130px;
     `}
@@ -51,7 +51,7 @@ const BottomArea = styled.div`
   /* 모바일 스타일 */
   max-height: 0;
   ${(props) =>
-    props.isMenuOpen &&
+    props.$isMenuOpen &&
     `
     max-height: 280px;
   `}
@@ -60,7 +60,7 @@ const BottomArea = styled.div`
   @media (min-width: 768px) {
     max-height: 0;
     ${(props) =>
-      (props.isExpanded || props.isMenuOpen) &&
+      (props.$isExpanded || props.$isMenuOpen) &&
       `
       max-height: 50px;
     `}
@@ -86,7 +86,7 @@ const ArrowButton = styled.button`
 
   /* 데스크톱 스타일 */
   @media (min-width: 768px) {
-    display: ${(props) => (props.isExpanded ? "none" : "flex")};
+    display: ${(props) => (props.$isExpanded ? "none" : "flex")};
   }
 
   &:focus {
@@ -103,21 +103,21 @@ const ArrowButton = styled.button`
 
     &:first-child {
       transform: ${(props) =>
-        props.isOpen
+        props.$isOpen
           ? "rotate(45deg) translate(2px, 2px)"
           : "rotate(0) translate(0, -5px)"};
     }
 
     &:nth-child(2) {
       transform: ${(props) =>
-        props.isOpen
+        props.$isOpen
           ? "scale(0) translate(12px, 0px)"
           : "scale(1) translate(0px, 0px)"};
     }
 
     &:last-child {
       transform: ${(props) =>
-        props.isOpen
+        props.$isOpen
           ? "rotate(-45deg) translate(2px, -2px)"
           : "rotate(0) translate(0, 5px)"};
     }
@@ -168,7 +168,7 @@ const MenuNavLink = styled(NavLink)`
   }
 `;
 
-const HoverBlurArea = styled(NavLink)`
+const HoverBlurArea = styled.div`
   padding: 12px;
   position: relative;
   display: inline-block;
@@ -265,20 +265,20 @@ const FloatingButtonArea = styled.div`
 function Navbar({ scrollToTop }) {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isExpanded, setisExpanded] = useState(true);
+  const [isMenuOpen, setisMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const cartList = useSelector((state) => state.cart.cartList);
 
   const scrollPosition = useSelector((state) => state.scroll.scrollPosition);
 
   useEffect(() => {
-    setIsExpanded(scrollPosition < 50);
+    setisExpanded(scrollPosition < 50);
   }, [scrollPosition]);
 
   useEffect(() => {
     if (isExpanded) {
-      setIsMenuOpen(false);
+      setisMenuOpen(false);
     }
   }, [isExpanded]);
 
@@ -292,12 +292,12 @@ function Navbar({ scrollToTop }) {
   }, []);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setisMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = () => {
     if (isMobile) {
-      setIsMenuOpen(false);
+      setisMenuOpen(false);
     }
   };
 
@@ -313,7 +313,7 @@ function Navbar({ scrollToTop }) {
     <>
       <Cart />
       <SearchModal />
-      <NavbarArea isExpanded={isExpanded} isMenuOpen={isMenuOpen}>
+      <NavbarArea $isExpanded={isExpanded} $isMenuOpen={isMenuOpen}>
         <div className="container mx-auto">
           {/* Top Area */}
           <div className="hidden md:flex justify-center">
@@ -324,8 +324,8 @@ function Navbar({ scrollToTop }) {
           <div className="flex justify-between items-center mb-3 px-3">
             <div className="flex items-center">
               <ArrowButton
-                isExpanded={isExpanded}
-                isOpen={isMenuOpen}
+                $isExpanded={isExpanded}
+                $isOpen={isMenuOpen}
                 onClick={toggleMenu}
               >
                 <div />
@@ -387,14 +387,14 @@ function Navbar({ scrollToTop }) {
                 </HoverBlurArea>
               </div>
               <div className="block md:hidden">
-                <HoverBlurArea onClick={onClickSearch}>
-                  <img src="/icons/search.svg" alt="" />
+                <HoverBlurArea>
+                  <img src="/icons/search.svg" alt="" onClick={onClickSearch} />
                 </HoverBlurArea>
               </div>
             </IconMenuArea>
           </div>
           {/* Bottom Area */}
-          <BottomArea isExpanded={isExpanded} isMenuOpen={isMenuOpen}>
+          <BottomArea $isExpanded={isExpanded} $isMenuOpen={isMenuOpen}>
             <ul className="flex flex-col items-center md:flex-row pb-5">
               <li className="hidden md:block">
                 <MenuNavLink to="/">
@@ -423,15 +423,6 @@ function Navbar({ scrollToTop }) {
           </BottomArea>
         </div>
       </NavbarArea>
-      {/* <div
-        style={
-          location.pathname !== "/Admin"
-            ? { height: "0" }
-            : isMobile
-            ? { height: "64px" }
-            : { height: "130px" }
-        }
-      /> */}
       {location.pathname.startsWith("/Admin") ? null : (
         <FloatingButtonArea onClick={onClickCart}>
           <CartBadge itemCount={cartList.length} />
