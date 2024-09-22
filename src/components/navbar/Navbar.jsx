@@ -388,7 +388,12 @@ function Navbar({ scrollToTop }) {
               </div>
               <div className="block md:hidden">
                 <HoverBlurArea>
-                  <img src="/icons/search.svg" alt="" onClick={onClickSearch} />
+                  <img
+                    src="/icons/search.svg"
+                    alt=""
+                    onClick={onClickSearch}
+                    className="cursor-pointer"
+                  />
                 </HoverBlurArea>
               </div>
             </IconMenuArea>
