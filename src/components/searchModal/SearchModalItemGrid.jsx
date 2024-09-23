@@ -54,7 +54,7 @@ function SearchModalItemGrid(searchItem) {
               src={searchItem.item.img[490]}
               alt="itemImg"
             />
-            <div className="flex flex-col items-start min-w-32 w-[450px]">
+            <div className="flex flex-col items-start min-w-32 w-[330px] md:w-[450px]">
               <div className="w-full truncate text-start text-[#4e3e2d] text-base sm:text-lg md:text-xl lg:text-2xl font-normal font-['Pretendard'] leading-tight mb-2">
                 {searchItem.item.name}
               </div>
