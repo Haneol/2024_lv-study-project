@@ -54,7 +54,7 @@ function SearchModalItemGrid(searchItem) {
               src={searchItem.item.img[490]}
               alt="itemImg"
             />
-            <div className="flex flex-col items-start min-w-32 w-[330px] md:w-[450px]">
+            <div className="flex flex-col items-start min-w-32 w-[160px] sm:w-80 md:w-[450px]">
               <div className="w-full truncate text-start text-[#4e3e2d] text-base sm:text-lg md:text-xl lg:text-2xl font-normal font-['Pretendard'] leading-tight mb-2">
                 {searchItem.item.name}
               </div>
@@ -63,7 +63,7 @@ function SearchModalItemGrid(searchItem) {
               </div>
             </div>
           </div>
-          <div className="min-w-32  flex items-center justify-end h-full mt-[8px] hover:scale-100">
+          <div className="min-w-32 flex items-center justify-end h-full mt-[8px] hover:scale-100">
             <div
               className="mt-[8px] px-[40px] md:px-[60px] py-[16px] md:py-[24px] right-[48px] bg-black/20 hover:bg-black/30 hover:scale-105 hover:shadow-md duration-200 rounded-[100px] border border-white/30 justify-center items-center gap-2.5 inline-flex cursor-pointer"
               onClick={(e) => {
@@ -76,7 +76,7 @@ function SearchModalItemGrid(searchItem) {
                 e.preventDefault();
               }}
             >
-              <div className="justify-center items-center flex">
+              <div className="justify-center items-center flex w-[24px]">
                 <img src="/icons/shopping-cart.svg" alt="shopping" />
               </div>
             </div>
