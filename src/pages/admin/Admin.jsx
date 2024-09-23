@@ -199,16 +199,16 @@ function Admin() {
   }
 
   return (
-    <div className="md:h-screen py-12 md:py-32">
+    <div className="mt-[60px] md:mt-[150px]">
       <div className="container mx-auto p-5 md:p-0 2xl:px-16">
-        <p className="m-6 text-gray-100 text-3xl font-bold">
+        <p className="mb-6 text-gray-100 text-3xl font-bold">
           Administrator Page
         </p>
         <div className="container p-10 bg-gray-100 bg-opacity-20 rounded-lg border border-white border-opacity-30">
           <div className="flex flex-wrap">
             <div
               className="rounded-lg pt-5 w-full order-2 md:order-1 md:w-[38.5%] bg-gray-100 bg-opacity-40 flex-col"
-              style={{ height: "60vh" }}
+              style={{ height: "56vh" }}
             >
               <LocationWrap>
                 {locations.length !== 0 ? (
@@ -248,16 +248,16 @@ function Admin() {
             </div>
             <div
               className="w-full md:w-7/12 mb-5 md:mb-0 md:ml-auto order-1 md:order-2 flex flex-col justify-between"
-              style={{ height: "60vh" }}
+              style={{ height: "56vh" }}
             >
               <div
                 id="map2"
                 className="w-full rounded-lg"
-                style={{ height: "28vh" }}
+                style={{ height: "26vh" }}
               ></div>
               <div
                 className="w-full rounded-lg bg-black bg-opacity-10 px-6 py-4"
-                style={{ height: "28vh" }}
+                style={{ height: "26vh" }}
               >
                 <div className="flex justify-between">
                   <h1 className="text-white font-bold text-xl mb-3 ">
@@ -305,7 +305,7 @@ function Admin() {
                     </button>
                   </div>
                 </div>
-                <div className="h-full">
+                <div className="h-[100%]">
                   <div className="h-1/3 mb-3 flex justify-between">
                     <StyledInput
                       type="text"
@@ -324,12 +324,12 @@ function Admin() {
                       placeholder="전화번호를 입력하세요."
                     />
                   </div>
-                  <div className="h-full mb-3 flex justify-between">
+                  <div className="h-1/3 mb-3 flex justify-between">
                     <button
                       onClick={() => setModal(true)}
                       className={`border border-white bg-white bg-opacity-10 ${
                         !isDisabled && "bg-opacity-30"
-                      } hover:bg-opacity-50 text-white font-bold text-opacity-80 hover:text-opacity-100 border-white rounded-full h-1/3 px-5  text-center`}
+                      } hover:bg-opacity-50 text-white font-bold text-opacity-80 hover:text-opacity-100 border-white rounded-full h-full px-5  text-center`}
                       style={{ width: "47%" }}
                     >
                       <div className="flex justify-center items-center content-center gap-2 w-full">
@@ -346,7 +346,7 @@ function Admin() {
 
                     <label
                       htmlFor="file"
-                      className="border border-white cursor-pointer flex justify-center items-center bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-1/3 px-5 py-3"
+                      className="border border-white cursor-pointer flex justify-center items-center bg-white bg-opacity-10 hover:bg-opacity-30 rounded-full h-full px-5 py-3"
                       style={{ width: "47%" }}
                     >
                       <p

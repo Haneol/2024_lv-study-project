@@ -8,11 +8,6 @@ const DetailArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 64px);
-
-  @media (min-width: 768px) {
-    height: calc(100vh - 130px);
-  }
 `;
 
 function Detail() {
@@ -40,15 +35,14 @@ function Detail() {
 
   return (
     <div>
-      <div className="h-[64px] md:h-[130px]" />
       <DetailArea>
-        <div className="container mx-auto px-4 md:py-10 ">
+        <div className="container mx-auto 2xl:px-16 px-4 mt-[75px] md:mt-[160px]">
           <div className="bg-white bg-opacity-60 backdrop-filter backdrop-blur-sm rounded-3xl flex flex-col md:flex-row items-center relative">
             <div className="w-full md:w-1/2 h-[40%] md:h-full p-4 flex items-center justify-center">
               <img
                 src={product.img[600]}
                 alt={product.name}
-                className="w-full h-[40vh] md:h-[70vh] object-contain"
+                className="w-full h-[38vh] md:h-[68vh] object-contain"
               />
             </div>
             <button
